@@ -2,23 +2,27 @@
 {
     public class Enclosure
     {
-        public int id { get; set; }
-        public string name { get; set; }
-        public string animal { get; set; }
-        public habitatSizeEnum habitatSize { get; set; }
-        public habitatWeatherEnum habitatweather { get; set; }
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public string Animal { get; set; }
+        public ClimateEnum Climate { get; set; }
+        public flagsEnum HabitatType { get; set; }
+        public SecurityLevelEnum SecurityLevel { get; set; }
+        public double Size { get; set; }
+ 
     }
-    public enum habitatSizeEnum
+
+    public enum ClimateEnum
     {
-        Low,
-        Medium,
-        High
+        Tropical, Temperate, Arctic
     }
-    public enum habitatWeatherEnum
+    public enum flagsEnum
     {
-        Sunny,
-        Cloudy,
-        Raining,
-        Clear
+        Forest, Aquatic, Desert, Grassland
     }
+    public enum SecurityLevel
+    {
+        Low, Medium, High
+    }
+
 }

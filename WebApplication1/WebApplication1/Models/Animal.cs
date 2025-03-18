@@ -1,21 +1,26 @@
-﻿namespace WebApplication1.Models
-{
+﻿namespace WebApplication1.Models {
     public class Animal
     {
-
-        public int id { get; set; }
-        public string name { get; set; }
-        public DateTime Birthday { get; set; }
-        public speciesEnum species { get; set; }
-        public dietEnum diet { get; set; }
+        public int Id { get; set; }
+        public string Name { get; set; } = string.Empty;
+        public string Species { get; set; } = string.Empty;
+        public string Category { get; set; }
+        public SizeEnum Size { get; set; }
+        public DietaryEnum DietaryClass { get; set; }
+        public ActivityPatternEnum ActivityPattern { get; set; }
+        public Boolean prey { get; set; }
+        public Enclosure? Enclosure { get; set; }
+        public int SpaceRequirement { get; set; }
+        public SecurityLevelEnum SecurityRequirement { get; set; }
     }
 
-    public enum dietEnum
+    public enum DietaryEnum
     {
         Carnovore,
         Herbivore,
         Omnivore
     }
+
     public enum speciesEnum
     {
         Fish,
@@ -24,4 +29,19 @@
         Reptiles,
         Amphibians
     }
+
+
+    public enum SizeEnum
+        {
+        Microscopic, VerySmall, Small, Medium, Large, VeryLarge
+    }
+    public enum ActivityPatternEnum
+    {
+        Diurnal, Nocturnal, Cathemeral
+    }
+    public enum SecurityLevelEnum
+    {
+        Low, Normal,High
+    }
+
 }
