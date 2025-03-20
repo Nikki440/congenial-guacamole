@@ -2,13 +2,11 @@
 
 namespace WebApplication1.Models
 {
-    public class DBContextDatabase : DbContext  
+    public class DBContextDatabase : DbContext  // Correct name here
     {
-        public DBContextDatabase(DbContextOptions<DBContextDatabase> options) : base(options)
-        {
-        }
+        public DBContextDatabase(DbContextOptions<DBContextDatabase> options) : base(options) { }
 
-        // DbSets
+        // Your DbSets here
         public DbSet<Animal> Animals { get; set; }
         public DbSet<Enclosure> Enclosures { get; set; }
         public DbSet<Category> Categories { get; set; }
