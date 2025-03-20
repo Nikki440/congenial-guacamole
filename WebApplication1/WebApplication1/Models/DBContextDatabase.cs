@@ -2,9 +2,9 @@
 
 namespace WebApplication1.Models
 {
-    public class Database : DbContext  // Let op: GEEN static class
+    public class DBContextDatabase : DbContext  
     {
-        public Database(DbContextOptions<Database> options) : base(options)
+        public DBContextDatabase(DbContextOptions<DBContextDatabase> options) : base(options)
         {
         }
 

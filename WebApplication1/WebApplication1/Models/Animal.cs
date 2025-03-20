@@ -41,7 +41,8 @@
     }
     public enum SecurityLevelEnum
     {
-        Low, Normal,High
+        Low, Medium,High,
+        
     }
 
 }
