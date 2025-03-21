@@ -5,7 +5,7 @@
 namespace WebApplication1.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialMigration : Migration
+    public partial class InitialCreate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -63,16 +63,15 @@ namespace WebApplication1.Migrations
                 name: "Animals",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Id = table.Column<int>(type: "int", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Species = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     CategoryId = table.Column<int>(type: "int", nullable: true),
                     Size = table.Column<int>(type: "int", nullable: false),
                     DietaryClass = table.Column<int>(type: "int", nullable: false),
                     ActivityPattern = table.Column<int>(type: "int", nullable: false),
-                    prey = table.Column<bool>(type: "bit", nullable: false),
-                    EnclosureId = table.Column<int>(type: "int", nullable: true),
+                    Prey = table.Column<bool>(type: "bit", nullable: false),
+                    EnclosureIdId = table.Column<int>(type: "int", nullable: true),
                     SpaceRequirement = table.Column<int>(type: "int", nullable: false),
                     SecurityRequirement = table.Column<int>(type: "int", nullable: false),
                     ZooId = table.Column<int>(type: "int", nullable: true)
@@ -86,8 +85,8 @@ namespace WebApplication1.Migrations
                         principalTable: "Categories",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_Animals_Enclosures_EnclosureId",
-                        column: x => x.EnclosureId,
+                        name: "FK_Animals_Enclosures_EnclosureIdId",
+                        column: x => x.EnclosureIdId,
                         principalTable: "Enclosures",
                         principalColumn: "Id");
                     table.ForeignKey(
@@ -103,9 +102,9 @@ namespace WebApplication1.Migrations
                 column: "CategoryId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Animals_EnclosureId",
+                name: "IX_Animals_EnclosureIdId",
                 table: "Animals",
-                column: "EnclosureId");
+                column: "EnclosureIdId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Animals_ZooId",

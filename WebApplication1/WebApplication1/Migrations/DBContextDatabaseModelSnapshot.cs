@@ -24,10 +24,7 @@ namespace WebApplication1.Migrations
             modelBuilder.Entity("WebApplication1.Models.Animal", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<int>("ActivityPattern")
                         .HasColumnType("int");
@@ -38,12 +35,15 @@ namespace WebApplication1.Migrations
                     b.Property<int>("DietaryClass")
                         .HasColumnType("int");
 
-                    b.Property<int?>("EnclosureId")
+                    b.Property<int?>("EnclosureIdId")
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("Prey")
+                        .HasColumnType("bit");
 
                     b.Property<int>("SecurityRequirement")
                         .HasColumnType("int");
@@ -61,14 +61,11 @@ namespace WebApplication1.Migrations
                     b.Property<int?>("ZooId")
                         .HasColumnType("int");
 
-                    b.Property<bool>("prey")
-                        .HasColumnType("bit");
-
                     b.HasKey("Id");
 
                     b.HasIndex("CategoryId");
 
-                    b.HasIndex("EnclosureId");
+                    b.HasIndex("EnclosureIdId");
 
                     b.HasIndex("ZooId");
 
@@ -149,9 +146,9 @@ namespace WebApplication1.Migrations
                         .WithMany("Animals")
                         .HasForeignKey("CategoryId");
 
-                    b.HasOne("WebApplication1.Models.Enclosure", "Enclosure")
+                    b.HasOne("WebApplication1.Models.Enclosure", "EnclosureId")
                         .WithMany("Animals")
-                        .HasForeignKey("EnclosureId");
+                        .HasForeignKey("EnclosureIdId");
 
                     b.HasOne("WebApplication1.Models.Zoo", null)
                         .WithMany("Animals")
@@ -159,7 +156,7 @@ namespace WebApplication1.Migrations
 
                     b.Navigation("Category");
 
-                    b.Navigation("Enclosure");
+                    b.Navigation("EnclosureId");
                 });
 
             modelBuilder.Entity("WebApplication1.Models.Enclosure", b =>
