@@ -23,7 +23,7 @@ namespace WebApplication1.Migrations
 
             modelBuilder.Entity("WebApplication1.Models.Animal", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("AnimalId")
                         .HasColumnType("int");
 
                     b.Property<int>("ActivityPattern")
@@ -35,7 +35,7 @@ namespace WebApplication1.Migrations
                     b.Property<int>("DietaryClass")
                         .HasColumnType("int");
 
-                    b.Property<int?>("EnclosureIdId")
+                    b.Property<int?>("EnclosureId1")
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
@@ -61,11 +61,11 @@ namespace WebApplication1.Migrations
                     b.Property<int?>("ZooId")
                         .HasColumnType("int");
 
-                    b.HasKey("Id");
+                    b.HasKey("AnimalId");
 
                     b.HasIndex("CategoryId");
 
-                    b.HasIndex("EnclosureIdId");
+                    b.HasIndex("EnclosureId1");
 
                     b.HasIndex("ZooId");
 
@@ -74,28 +74,28 @@ namespace WebApplication1.Migrations
 
             modelBuilder.Entity("WebApplication1.Models.Category", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("CategoryId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CategoryId"));
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("Id");
+                    b.HasKey("CategoryId");
 
                     b.ToTable("Categories");
                 });
 
             modelBuilder.Entity("WebApplication1.Models.Enclosure", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("EnclosureId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("EnclosureId"));
 
                     b.Property<int>("Climate")
                         .HasColumnType("int");
@@ -116,7 +116,7 @@ namespace WebApplication1.Migrations
                     b.Property<int?>("ZooId")
                         .HasColumnType("int");
 
-                    b.HasKey("Id");
+                    b.HasKey("EnclosureId");
 
                     b.HasIndex("ZooId");
 
@@ -148,7 +148,7 @@ namespace WebApplication1.Migrations
 
                     b.HasOne("WebApplication1.Models.Enclosure", "EnclosureId")
                         .WithMany("Animals")
-                        .HasForeignKey("EnclosureIdId");
+                        .HasForeignKey("EnclosureId1");
 
                     b.HasOne("WebApplication1.Models.Zoo", null)
                         .WithMany("Animals")

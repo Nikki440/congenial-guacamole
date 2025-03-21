@@ -2,7 +2,7 @@
 {
     public class Enclosure
     {
-        public int Id { get; set; }
+        public int EnclosureId { get; set; }
         public string Name { get; set; }
         public List<Animal> Animals { get; set; } = new();
         public ClimateEnum Climate { get; set; }

@@ -14,13 +14,13 @@ namespace WebApplication1.Migrations
                 name: "Categories",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
+                    CategoryId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Categories", x => x.Id);
+                    table.PrimaryKey("PK_Categories", x => x.CategoryId);
                 });
 
             migrationBuilder.CreateTable(
@@ -40,7 +40,7 @@ namespace WebApplication1.Migrations
                 name: "Enclosures",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
+                    EnclosureId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Climate = table.Column<int>(type: "int", nullable: false),
@@ -51,7 +51,7 @@ namespace WebApplication1.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Enclosures", x => x.Id);
+                    table.PrimaryKey("PK_Enclosures", x => x.EnclosureId);
                     table.ForeignKey(
                         name: "FK_Enclosures_Zoos_ZooId",
                         column: x => x.ZooId,
@@ -63,7 +63,7 @@ namespace WebApplication1.Migrations
                 name: "Animals",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false),
+                    AnimalId = table.Column<int>(type: "int", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Species = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     CategoryId = table.Column<int>(type: "int", nullable: true),
@@ -71,24 +71,24 @@ namespace WebApplication1.Migrations
                     DietaryClass = table.Column<int>(type: "int", nullable: false),
                     ActivityPattern = table.Column<int>(type: "int", nullable: false),
                     Prey = table.Column<bool>(type: "bit", nullable: false),
-                    EnclosureIdId = table.Column<int>(type: "int", nullable: true),
+                    EnclosureId1 = table.Column<int>(type: "int", nullable: true),
                     SpaceRequirement = table.Column<int>(type: "int", nullable: false),
                     SecurityRequirement = table.Column<int>(type: "int", nullable: false),
                     ZooId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Animals", x => x.Id);
+                    table.PrimaryKey("PK_Animals", x => x.AnimalId);
                     table.ForeignKey(
                         name: "FK_Animals_Categories_CategoryId",
                         column: x => x.CategoryId,
                         principalTable: "Categories",
-                        principalColumn: "Id");
+                        principalColumn: "CategoryId");
                     table.ForeignKey(
-                        name: "FK_Animals_Enclosures_EnclosureIdId",
-                        column: x => x.EnclosureIdId,
+                        name: "FK_Animals_Enclosures_EnclosureId1",
+                        column: x => x.EnclosureId1,
                         principalTable: "Enclosures",
-                        principalColumn: "Id");
+                        principalColumn: "EnclosureId");
                     table.ForeignKey(
                         name: "FK_Animals_Zoos_ZooId",
                         column: x => x.ZooId,
@@ -102,9 +102,9 @@ namespace WebApplication1.Migrations
                 column: "CategoryId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Animals_EnclosureIdId",
+                name: "IX_Animals_EnclosureId1",
                 table: "Animals",
-                column: "EnclosureIdId");
+                column: "EnclosureId1");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Animals_ZooId",

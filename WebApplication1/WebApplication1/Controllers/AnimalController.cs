@@ -63,7 +63,7 @@ public class AnimalController : Controller
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Species,CategoryId,Size,DietaryClass,ActivityPattern,Prey,SpaceRequirement,SecurityRequirement")] Animal animal)
     {
-        if (id != animal.Id)
+        if (id != animal.AnimalId)
         {
             return NotFound();
         }
@@ -77,7 +77,7 @@ public class AnimalController : Controller
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!AnimalExists(animal.Id))
+                if (!AnimalExists(animal.AnimalId))
                 {
                     return NotFound();
                 }
@@ -102,7 +102,7 @@ public class AnimalController : Controller
 
         var animal = await _context.Animals
             .Include(a => a.Category)
-            .FirstOrDefaultAsync(m => m.Id == id);
+            .FirstOrDefaultAsync(m => m.AnimalId == id);
         if (animal == null)
         {
             return NotFound();
@@ -124,6 +124,6 @@ public class AnimalController : Controller
 
     private bool AnimalExists(int id)
     {
-        return _context.Animals.Any(e => e.Id == id);
+        return _context.Animals.Any(e => e.AnimalId == id);
     }
 }
