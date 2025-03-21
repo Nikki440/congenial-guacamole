@@ -4,7 +4,11 @@
         public int Id { get; set; }
         public string Name { get; set; } = string.Empty;
         public string Species { get; set; } = string.Empty;
-        public string Category { get; set; }
+        // Foreign Key for Category
+        public int? CategoryId { get; set; }
+
+        // Navigation Property for Category
+        public Category? Category { get; set; }
         public SizeEnum Size { get; set; }
         public DietaryEnum DietaryClass { get; set; }
         public ActivityPatternEnum ActivityPattern { get; set; }

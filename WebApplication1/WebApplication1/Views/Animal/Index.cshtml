@@ -1,0 +1,19 @@
+﻿@model List<WebApplication1.Models.Animal>
+
+<h2>Animal List</h2>
+
+<table border="1">
+	<tr>
+		<th>Name</th>
+		<th>Species</th>
+		<th>Category</th> <!-- Change "CategoryId" to "Category" -->
+	</tr>
+	@foreach (var animal in Model)
+	{
+		<tr>
+			<td>@animal.Name</td>
+			<td>@animal.Species</td>
+			<td>@animal.Category?.Name</td> <!-- Corrected: Use Category instead of CategoryId -->
+		</tr>
+	}
+</table>
