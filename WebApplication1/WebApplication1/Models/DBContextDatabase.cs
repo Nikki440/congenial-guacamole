@@ -63,6 +63,9 @@ namespace WebApplication1.Models
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            // Call the SeedData method to seed the data
+            SeedData(modelBuilder);
+
             // Ensure the Id property is auto-generated
             modelBuilder.Entity<Animal>()
                 .Property(a => a.Id)

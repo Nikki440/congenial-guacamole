@@ -11,8 +11,8 @@ using WebApplication1.Models;
 namespace WebApplication1.Migrations
 {
     [DbContext(typeof(DBContextDatabase))]
-    [Migration("20250321115824_SeedDataMigration")]
-    partial class SeedDataMigration
+    [Migration("20250321121251_InitialMigration")]
+    partial class InitialMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
