@@ -37,7 +37,7 @@ namespace WebApplication1.Models
 
             // Seed Animals
             var animalFaker = new Faker<Animal>()
-                .RuleFor(a => a.Name, f => f.Commerce.ProductName()) // Generates a product-like name for the animal
+                .RuleFor(a => a.Name, f => f.Commerce.ProductName())
                 .RuleFor(a => a.Species, f => f.PickRandom<speciesEnum>().ToString())
                 .RuleFor(a => a.Size, f => f.PickRandom<SizeEnum>())
                 .RuleFor(a => a.DietaryClass, f => f.PickRandom<DietaryEnum>())
@@ -45,10 +45,10 @@ namespace WebApplication1.Models
                 .RuleFor(a => a.prey, f => f.Random.Bool())
                 .RuleFor(a => a.SpaceRequirement, f => f.Random.Number(100, 1000))
                 .RuleFor(a => a.SecurityRequirement, f => f.PickRandom<SecurityLevelEnum>())
-                .RuleFor(a => a.CategoryId, f => f.PickRandom(categories).Id) // Pick random category
-                .RuleFor(a => a.Enclosure, f => f.PickRandom(enclosures)); // Pick random enclosure
+                .RuleFor(a => a.CategoryId, f => f.PickRandom(categories).Id)
+                .RuleFor(a => a.Enclosure, f => f.PickRandom(enclosures));
 
-            var animals = animalFaker.Generate(10); // Generate 10 animals
+            var animals = animalFaker.Generate(10);
             modelBuilder.Entity<Animal>().HasData(animals);
 
             // Seed Zoos
@@ -61,13 +61,14 @@ namespace WebApplication1.Models
             modelBuilder.Entity<Zoo>().HasData(zoos);
         }
 
-        // Overriding OnModelCreating to add seed data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            base.OnModelCreating(modelBuilder);
+            // Ensure the Id property is auto-generated
+            modelBuilder.Entity<Animal>()
+                .Property(a => a.Id)
+                .ValueGeneratedOnAdd();
 
-            // Call the SeedData method
-            SeedData(modelBuilder);
+            base.OnModelCreating(modelBuilder);
         }
     }
 }

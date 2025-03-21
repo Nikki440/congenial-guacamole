@@ -1,4 +1,5 @@
 ﻿using Bogus;
+using Microsoft.EntityFrameworkCore;
 using WebApplication1.Models;
 
 namespace WebApplication1.Data
@@ -10,7 +11,7 @@ namespace WebApplication1.Data
             // Check if data already exists in the tables
             if (context.Animals.Any() || context.Categories.Any() || context.Enclosures.Any())
             {
-                return;   // If there are already records, do not seed
+                return; // If there are already records, do not seed
             }
 
             // Seed Categories
@@ -24,11 +25,22 @@ namespace WebApplication1.Data
             context.Categories.AddRange(categories);
             context.SaveChanges();
 
+
             // Seed Enclosures
             var enclosures = new List<Enclosure>
             {
-                new Enclosure { Name = "Savannah", Climate = ClimateEnum.Tropical, HabitatType = flagsEnum.Forest | flagsEnum.Grassland, SecurityLevel = SecurityLevelEnum.Medium, Size = 500 },
-                new Enclosure { Name = "Aviary", Climate = ClimateEnum.Temperate, HabitatType = flagsEnum.Forest | flagsEnum.Aquatic, SecurityLevel = SecurityLevelEnum.Low, Size = 300 }
+                new Enclosure
+                {
+                    Name = "Savannah", Climate = ClimateEnum.Tropical,
+                    HabitatType = flagsEnum.Forest | flagsEnum.Grassland, SecurityLevel = SecurityLevelEnum.Medium,
+                    Size = 500
+                },
+                new Enclosure
+                {
+                    Name = "Aviary", Climate = ClimateEnum.Temperate,
+                    HabitatType = flagsEnum.Forest | flagsEnum.Aquatic, SecurityLevel = SecurityLevelEnum.Low,
+                    Size = 300
+                }
             };
 
             context.Enclosures.AddRange(enclosures);
@@ -43,8 +55,8 @@ namespace WebApplication1.Data
                 {
                     Name = faker.Name.FirstName(),
                     Species = "Lion",
-                    Category = categories[0], // Mammals
-                    Enclosure = enclosures[0], // Savannah
+                    Category = categories[0],
+                    Enclosure = enclosures[0],
                     Size = SizeEnum.Large,
                     DietaryClass = DietaryEnum.Carnovore,
                     ActivityPattern = ActivityPatternEnum.Diurnal,
@@ -56,8 +68,8 @@ namespace WebApplication1.Data
                 {
                     Name = faker.Name.FirstName(),
                     Species = "Eagle",
-                    Category = categories[1], // Birds
-                    Enclosure = enclosures[1], // Aviary
+                    Category = categories[1],
+                    Enclosure = enclosures[1],
                     Size = SizeEnum.Medium,
                     DietaryClass = DietaryEnum.Carnovore,
                     ActivityPattern = ActivityPatternEnum.Diurnal,
@@ -69,8 +81,8 @@ namespace WebApplication1.Data
                 {
                     Name = faker.Name.FirstName(),
                     Species = "Turtle",
-                    Category = categories[2], // Reptiles
-                    Enclosure = enclosures[0], // Savannah
+                    Category = categories[2],
+                    Enclosure = enclosures[0],
                     Size = SizeEnum.Small,
                     DietaryClass = DietaryEnum.Herbivore,
                     ActivityPattern = ActivityPatternEnum.Nocturnal,
@@ -80,8 +92,12 @@ namespace WebApplication1.Data
                 }
             };
 
+            // Enable IDENTITY_INSERT for Animals table
+            context.Database.ExecuteSqlRaw("SET IDENTITY_INSERT Animals ON");
+
             context.Animals.AddRange(animals);
             context.SaveChanges();
+
         }
     }
 }

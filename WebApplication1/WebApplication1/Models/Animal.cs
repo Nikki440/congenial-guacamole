@@ -1,13 +1,13 @@
-﻿namespace WebApplication1.Models {
+﻿namespace WebApplication1.Models
+{
     public class Animal
     {
-        public int Id { get; set; }
+        public int Id { get; set; } // Auto-generated Id
         public string Name { get; set; } = string.Empty;
         public string Species { get; set; } = string.Empty;
         // Foreign Key for Category
-        public int? CategoryId { get; set; }
+        public int? CategoryId { get; set; }  // Nullable foreign key
 
-        // Navigation Property for Category
         public Category? Category { get; set; }
         public SizeEnum Size { get; set; }
         public DietaryEnum DietaryClass { get; set; }
@@ -34,9 +34,8 @@
         Amphibians
     }
 
-
     public enum SizeEnum
-        {
+    {
         Microscopic, VerySmall, Small, Medium, Large, VeryLarge
     }
     public enum ActivityPatternEnum
@@ -45,8 +44,6 @@
     }
     public enum SecurityLevelEnum
     {
-        Low, Medium,High,
-        
+        Low, Medium, High,
     }
-
 }
