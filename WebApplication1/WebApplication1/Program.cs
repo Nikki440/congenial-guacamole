@@ -1,19 +1,29 @@
 using Microsoft.EntityFrameworkCore;
-using WebApplication1.Models;  // Correct namespace for your DBContextDatabase
+using WebApplication1.Data;
+using WebApplication1.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Register the DBContextDatabase DbContext
+// Add services to the container.
+builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<DBContextDatabase>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DBConnection")));
 
-// Add services to the container.
-builder.Services.AddControllersWithViews();
-
 var app = builder.Build();
 
+// Apply any pending migrations and seed the database
+using (var scope = app.Services.CreateScope())
+{
+    var context = scope.ServiceProvider.GetRequiredService<DBContextDatabase>();
+    SeedData.Initialize(scope.ServiceProvider, context);  // Call the seeding method here
+}
+
 // Configure the HTTP request pipeline.
-if (!app.Environment.IsDevelopment())
+if (app.Environment.IsDevelopment())
+{
+    app.UseDeveloperExceptionPage();
+}
+else
 {
     app.UseExceptionHandler("/Home/Error");
     app.UseHsts();
@@ -21,20 +31,13 @@ if (!app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
+
 app.UseRouting();
+
 app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
-
-using (var scope = app.Services.CreateScope())
-{
-    var services = scope.ServiceProvider;
-    var context = services.GetRequiredService<DBContextDatabase>();  // Correct reference
-
-    // Apply any pending migrations
-    context.Database.Migrate();  // Apply migrations
-}
 
 app.Run();

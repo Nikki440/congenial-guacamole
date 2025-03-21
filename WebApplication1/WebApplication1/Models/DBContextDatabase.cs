@@ -1,15 +1,20 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Bogus;
+using Microsoft.EntityFrameworkCore;
+using WebApplication1.Models;
 
 namespace WebApplication1.Models
 {
-    public class DBContextDatabase : DbContext  // Correct name here
+    public class DBContextDatabase : DbContext
     {
-        public DBContextDatabase(DbContextOptions<DBContextDatabase> options) : base(options) { }
+        public DBContextDatabase(DbContextOptions<DBContextDatabase> options) : base(options)
+        {
+        }
 
-        // Your DbSets here
+        // DbSets
         public DbSet<Animal> Animals { get; set; }
         public DbSet<Enclosure> Enclosures { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<Zoo> Zoos { get; set; }
+
     }
 }
