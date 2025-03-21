@@ -61,7 +61,7 @@ namespace WebApplication1.Migrations
                     b.Property<int?>("ZooId")
                         .HasColumnType("int");
 
-                    b.Property<bool>("prey")
+                    b.Property<bool>("Prey")
                         .HasColumnType("bit");
 
                     b.HasKey("Id");

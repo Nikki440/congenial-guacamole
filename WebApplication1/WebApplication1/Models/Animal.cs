@@ -12,7 +12,7 @@
         public SizeEnum Size { get; set; }
         public DietaryEnum DietaryClass { get; set; }
         public ActivityPatternEnum ActivityPattern { get; set; }
-        public Boolean prey { get; set; }
+        public Boolean Prey { get; set; }
         public Enclosure? Enclosure { get; set; }
         public int SpaceRequirement { get; set; }
         public SecurityLevelEnum SecurityRequirement { get; set; }

@@ -47,7 +47,7 @@ namespace WebApplication1.Models
                 .RuleFor(a => a.Size, f => f.PickRandom<SizeEnum>())
                 .RuleFor(a => a.DietaryClass, f => f.PickRandom<DietaryEnum>())
                 .RuleFor(a => a.ActivityPattern, f => f.PickRandom<ActivityPatternEnum>())
-                .RuleFor(a => a.prey, f => f.Random.Bool())
+                .RuleFor(a => a.Prey, f => f.Random.Bool())
                 .RuleFor(a => a.SpaceRequirement, f => f.Random.Number(100, 1000))
                 .RuleFor(a => a.SecurityRequirement, f => f.PickRandom<SecurityLevelEnum>())
                 .RuleFor(a => a.CategoryId, f => f.PickRandom(categories).Id)

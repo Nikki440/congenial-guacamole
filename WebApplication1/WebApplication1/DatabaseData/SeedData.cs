@@ -7,92 +7,46 @@ namespace WebApplication1.Data
     {
         public static void Initialize(IServiceProvider serviceProvider, DBContextDatabase context)
         {
-            // Check if data already exists in the tables
-            if (context.Animals.Any() || context.Categories.Any() || context.Enclosures.Any())
-            {
-                return; // If there are already records, do not seed
-            }
 
-            // Seed Categories
-            var categories = new List<Category>
-            {
-                new Category { Name = "Mammals" },
-                new Category { Name = "Birds" },
-                new Category { Name = "Reptiles" }
-            };
 
+            // Seed Categories using Bogus
+            var categoryFaker = new Faker<Category>()
+                .RuleFor(c => c.Name, f => f.PickRandom(new[] { "Mammals", "Birds", "Reptiles", "Amphibians", "Fish" }));
+
+            var categories = categoryFaker.Generate(5);
             context.Categories.AddRange(categories);
             context.SaveChanges();
 
-            // Seed Enclosures
-            var enclosures = new List<Enclosure>
-            {
-                new Enclosure
-                {
-                    Name = "Savannah", Climate = ClimateEnum.Tropical,
-                    HabitatType = flagsEnum.Forest | flagsEnum.Grassland, SecurityLevel = SecurityLevelEnum.Medium,
-                    Size = 500
-                },
-                new Enclosure
-                {
-                    Name = "Aviary", Climate = ClimateEnum.Temperate,
-                    HabitatType = flagsEnum.Forest | flagsEnum.Aquatic, SecurityLevel = SecurityLevelEnum.Low,
-                    Size = 300
-                }
-            };
+            // Seed Enclosures using Bogus
+            var enclosureFaker = new Faker<Enclosure>()
+                .RuleFor(e => e.Name, f => f.Lorem.Word())
+                .RuleFor(e => e.Climate, f => f.PickRandom<ClimateEnum>())
+                .RuleFor(e => e.HabitatType, f => f.PickRandom<flagsEnum>())
+                .RuleFor(e => e.SecurityLevel, f => f.PickRandom<SecurityLevelEnum>())
+                .RuleFor(e => e.Size, f => f.Random.Double(100, 1000));
 
+            var enclosures = enclosureFaker.Generate(5);
             context.Enclosures.AddRange(enclosures);
             context.SaveChanges();
 
             // Seed Animals using Bogus
-            var faker = new Faker();
+            var animalFaker = new Faker<Animal>()
+                .RuleFor(a => a.Name, f => f.Name.FirstName())
+                .RuleFor(a => a.Species, f => f.PickRandom(new[] { "Lion", "Eagle", "Turtle", "Penguin", "Snake" }))
+                .RuleFor(a => a.Category, f => f.PickRandom(categories))
+                .RuleFor(a => a.Enclosure, f => f.PickRandom(enclosures))
+                .RuleFor(a => a.Size, f => f.PickRandom<SizeEnum>())
+                .RuleFor(a => a.DietaryClass, f => f.PickRandom<DietaryEnum>())
+                .RuleFor(a => a.ActivityPattern, f => f.PickRandom<ActivityPatternEnum>())
+                .RuleFor(a => a.Prey, f => f.Random.Bool())
+                .RuleFor(a => a.SpaceRequirement, f => f.Random.Double(10, 200))
+                .RuleFor(a => a.SecurityRequirement, f => f.PickRandom<SecurityLevelEnum>())
+                .RuleFor(a => a.SpaceRequirement, f => f.Random.Int(10, 200));
 
-            var animals = new List<Animal>
-            {
-                new Animal
-                {
-                    Name = faker.Name.FirstName(),
-                    Species = "Lion",
-                    Category = categories[0],
-                    Enclosure = enclosures[0],
-                    Size = SizeEnum.Large,
-                    DietaryClass = DietaryEnum.Carnovore,
-                    ActivityPattern = ActivityPatternEnum.Diurnal,
-                    prey = true,
-                    SpaceRequirement = 100,
-                    SecurityRequirement = SecurityLevelEnum.High
-                },
-                new Animal
-                {
-                    Name = faker.Name.FirstName(),
-                    Species = "Eagle",
-                    Category = categories[1],
-                    Enclosure = enclosures[1],
-                    Size = SizeEnum.Medium,
-                    DietaryClass = DietaryEnum.Carnovore,
-                    ActivityPattern = ActivityPatternEnum.Diurnal,
-                    prey = true,
-                    SpaceRequirement = 50,
-                    SecurityRequirement = SecurityLevelEnum.Low
-                },
-                new Animal
-                {
-                    Name = faker.Name.FirstName(),
-                    Species = "Turtle",
-                    Category = categories[2],
-                    Enclosure = enclosures[0],
-                    Size = SizeEnum.Small,
-                    DietaryClass = DietaryEnum.Herbivore,
-                    ActivityPattern = ActivityPatternEnum.Nocturnal,
-                    prey = false,
-                    SpaceRequirement = 25,
-                    SecurityRequirement = SecurityLevelEnum.Medium
-                }
-            };
 
+            var animals = animalFaker.Generate(20);
             context.Animals.AddRange(animals);
             context.SaveChanges();
-
         }
     }
 }
