@@ -6,7 +6,9 @@ namespace WebApplication1.Models
 {
     public class DBContextDatabase : DbContext
     {
-        public DBContextDatabase(DbContextOptions<DBContextDatabase> options) : base(options) { }
+        public DBContextDatabase(DbContextOptions<DBContextDatabase> options) : base(options)
+        {
+        }
 
         // DbSets
         public DbSet<Animal> Animals { get; set; }
@@ -19,6 +21,7 @@ namespace WebApplication1.Models
         {
             // Seed Categories
             var categoryFaker = new Faker<Category>()
+                .RuleFor(c => c.Id, f => f.IndexFaker + 1) // Ensure unique Ids starting from 1
                 .RuleFor(c => c.Name, f => f.PickRandom(new[] { "Mammal", "Bird", "Reptile", "Fish", "Amphibian" }));
 
             var categories = categoryFaker.Generate(5); // Generate 5 categories
@@ -26,6 +29,7 @@ namespace WebApplication1.Models
 
             // Seed Enclosures
             var enclosureFaker = new Faker<Enclosure>()
+                .RuleFor(e => e.Id, f => f.IndexFaker + 1) // Ensure unique Ids starting from 1
                 .RuleFor(e => e.Name, f => f.Lorem.Word())
                 .RuleFor(e => e.Size, f => f.Random.Number(100, 1000))
                 .RuleFor(e => e.Climate, f => f.PickRandom<ClimateEnum>())
@@ -37,6 +41,7 @@ namespace WebApplication1.Models
 
             // Seed Animals
             var animalFaker = new Faker<Animal>()
+                .RuleFor(a => a.Id, f => -(f.IndexFaker + 1)) // Assign negative Ids to avoid collisions
                 .RuleFor(a => a.Name, f => f.Commerce.ProductName())
                 .RuleFor(a => a.Species, f => f.PickRandom<speciesEnum>().ToString())
                 .RuleFor(a => a.Size, f => f.PickRandom<SizeEnum>())
@@ -53,25 +58,13 @@ namespace WebApplication1.Models
 
             // Seed Zoos
             var zooFaker = new Faker<Zoo>()
+                .RuleFor(z => z.Id, f => f.IndexFaker + 1) // Ensure unique Ids starting from 1
                 .RuleFor(z => z.Name, f => f.Company.CompanyName())
                 .RuleFor(z => z.Enclosures, f => enclosures.Take(2).ToList()) // Pick first two enclosures
                 .RuleFor(z => z.Animals, f => animals.Take(5).ToList()); // Pick first five animals
 
             var zoos = zooFaker.Generate(2); // Generate 2 zoos
             modelBuilder.Entity<Zoo>().HasData(zoos);
-        }
-
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            // Call the SeedData method to seed the data
-            SeedData(modelBuilder);
-
-            // Ensure the Id property is auto-generated
-            modelBuilder.Entity<Animal>()
-                .Property(a => a.Id)
-                .ValueGeneratedOnAdd();
-
-            base.OnModelCreating(modelBuilder);
         }
     }
 }
