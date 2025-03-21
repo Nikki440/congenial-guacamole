@@ -7,7 +7,11 @@ namespace WebApplication1.Data
     {
         public static void Initialize(IServiceProvider serviceProvider, DBContextDatabase context)
         {
-
+            // Check if the database has been seeded
+            if (context.Categories.Any() || context.Enclosures.Any() || context.Animals.Any())
+            {
+                return; // DB has been seeded
+            }
 
             // Seed Categories using Bogus
             var categoryFaker = new Faker<Category>()
@@ -42,7 +46,6 @@ namespace WebApplication1.Data
                 .RuleFor(a => a.SpaceRequirement, f => f.Random.Double(10, 200))
                 .RuleFor(a => a.SecurityRequirement, f => f.PickRandom<SecurityLevelEnum>())
                 .RuleFor(a => a.SpaceRequirement, f => f.Random.Int(10, 200));
-
 
             var animals = animalFaker.Generate(20);
             context.Animals.AddRange(animals);
