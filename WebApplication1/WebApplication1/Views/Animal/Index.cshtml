@@ -16,6 +16,7 @@
 		<th>Prey</th>
 		<th>Space Requirement</th>
 		<th>Security Requirement</th>
+		<th>Actions</th>
 	</tr>
 	@foreach (var animal in Model)
 	{
@@ -30,6 +31,12 @@
 			<td>@(animal.Prey ? "Yes" : "No")</td>
 			<td>@animal.SpaceRequirement</td>
 			<td>@animal.SecurityRequirement</td>
+			<td>
+				<form asp-area="" asp-controller="Animal" asp-action="Delete" method="post" style="display:inline;">
+					<input type="hidden" name="id" value="@animal.Id" />
+					<button type="submit" class="btn btn-danger">Delete</button>
+				</form>
+			</td>
 		</tr>
 	}
 </table>

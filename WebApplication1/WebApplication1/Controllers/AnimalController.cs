@@ -93,32 +93,18 @@ public class AnimalController : Controller
     }
 
     // GET: Animal/Delete/5
-    public async Task<IActionResult> Delete(int? id)
+    [HttpPost]
+    public async Task<IActionResult> Delete(int id)
     {
-        if (id == null)
-        {
-            return NotFound();
-        }
-
-        var animal = await _context.Animals
-            .Include(a => a.Category)
-            .FirstOrDefaultAsync(m => m.Id == id);
+        var animal = await _context.Animals.FindAsync(id);
         if (animal == null)
         {
             return NotFound();
         }
 
-        return View(animal);
-    }
-
-    // POST: Animal/Delete/5
-    [HttpPost, ActionName("Delete")]
-    [ValidateAntiForgeryToken]
-    public async Task<IActionResult> DeleteConfirmed(int id)
-    {
-        var animal = await _context.Animals.FindAsync(id);
         _context.Animals.Remove(animal);
         await _context.SaveChangesAsync();
+
         return RedirectToAction(nameof(Index));
     }
 
