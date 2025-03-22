@@ -37,7 +37,7 @@ public class AnimalController : Controller
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
-        ViewData["CategoryId"] = new SelectList(_context.Categories, "Id", "Name", animal.CategoryId); // Ensure we use CategoryId
+        ViewData["CategoryId"] = new SelectList(_context.Categories, "Id", "Name", animal.CategoryId);
         return View(animal);
     }
 

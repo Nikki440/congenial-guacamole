@@ -3,19 +3,43 @@
 <h2>Create Animal</h2>
 
 <form asp-action="Create" method="post">
-	<label>Name:</label>
-	<input type="text" name="Name" required />
-	<br />
+    <label>Name:</label>
+    <input type="text" name="Name" required />
+    <br />
 
-	<label>Species:</label>
-	<input type="text" name="Species" required />
-	<br />
+    <label>Species:</label>
+    <input type="text" name="Species" required />
+    <br />
 
-	<label>Category:</label>
-	<select name="CategoryId" asp-items="ViewBag.CategoryId"></select>
-	<br />
+    <label>Category:</label>
+    <select name="CategoryId" asp-items="ViewBag.CategoryId"></select>
+    <br />
 
-	<button type="submit">Create</button>
+    <label>Size:</label>
+    <select name="Size" asp-items="@(new SelectList(Enum.GetValues(typeof(WebApplication1.Models.SizeEnum))))"></select>
+    <br />
+
+    <label>Dietary Class:</label>
+    <select name="DietaryClass" asp-items="@(new SelectList(Enum.GetValues(typeof(WebApplication1.Models.DietaryEnum))))"></select>
+    <br />
+
+    <label>Activity Pattern:</label>
+    <select name="ActivityPattern" asp-items="@(new SelectList(Enum.GetValues(typeof(WebApplication1.Models.ActivityPatternEnum))))"></select>
+    <br />
+
+    <label>Prey:</label>
+    <input type="checkbox" name="Prey" />
+    <br />
+
+    <label>Space Requirement:</label>
+    <input type="number" name="SpaceRequirement" required />
+    <br />
+
+    <label>Security Requirement:</label>
+    <select name="SecurityRequirement" asp-items="@(new SelectList(Enum.GetValues(typeof(WebApplication1.Models.SecurityLevelEnum))))"></select>
+    <br />
+
+    <button type="submit">Create</button>
 </form>
 
 <a asp-action="Index">Back to List</a>
