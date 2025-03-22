@@ -8,3 +8,8 @@ To drop database, open Package Manager Console and run:
 ```
 dotnet ef database drop --force
 ```
+If this fails. make sure you're in the right folder with:
+```
+cd WebApplication1
+```
+and ensure "WebApplication1.csproj" is listed when running "ls"
