@@ -22,7 +22,9 @@
     {
         Carnivore,
         Herbivore,
-        Omnivore
+        Omnivore,
+        Insectivore,
+        Piscivore
     }
 
     public enum speciesEnum
@@ -36,14 +38,23 @@
 
     public enum SizeEnum
     {
-        Microscopic, VerySmall, Small, Medium, Large, VeryLarge
+        Microscopic, 
+        VerySmall, 
+        Small, 
+        Medium, 
+        Large, 
+        VeryLarge
     }
     public enum ActivityPatternEnum
     {
-        Diurnal, Nocturnal, Cathemeral
+        Diurnal, 
+        Nocturnal, 
+        Cathemeral
     }
     public enum SecurityLevelEnum
     {
-        Low, Medium, High,
+        Low, 
+        Medium, 
+        High
     }
 }
