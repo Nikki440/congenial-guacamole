@@ -3,24 +3,54 @@
 <h2>Edit Animal</h2>
 
 <form asp-action="Edit" method="post">
-	<input type="hidden" asp-for="Id" />
+    <input type="hidden" asp-for="Id" />
 
-	<div>
-		<label>Name:</label>
-		<input type="text" asp-for="Name" required />
-	</div>
+    <div>
+        <label>Name:</label>
+        <input type="text" asp-for="Name" required />
+    </div>
     
-	<div>
-		<label>Species:</label>
-		<input type="text" asp-for="Species" required />
-	</div>
+    <div>
+        <label>Species:</label>
+        <input type="text" asp-for="Species" required />
+    </div>
 
-	<div>
-		<label>Category:</label>
-		<select asp-for="CategoryId" asp-items="ViewBag.CategoryId"></select>
-	</div>
+    <div>
+        <label>Category:</label>
+        <select asp-for="CategoryId" asp-items="ViewBag.CategoryId"></select>
+    </div>
 
-	<button type="submit">Save Changes</button>
+    <div>
+        <label>Size:</label>
+        <select asp-for="Size" asp-items="@(new SelectList(Enum.GetValues(typeof(WebApplication1.Models.SizeEnum))))"></select>
+    </div>
+
+    <div>
+        <label>Dietary Class:</label>
+        <select asp-for="DietaryClass" asp-items="@(new SelectList(Enum.GetValues(typeof(WebApplication1.Models.DietaryEnum))))"></select>
+    </div>
+
+    <div>
+        <label>Activity Pattern:</label>
+        <select asp-for="ActivityPattern" asp-items="@(new SelectList(Enum.GetValues(typeof(WebApplication1.Models.ActivityPatternEnum))))"></select>
+    </div>
+
+    <div>
+        <label>Prey:</label>
+        <input type="checkbox" asp-for="Prey" />
+    </div>
+
+    <div>
+        <label>Space Requirement:</label>
+        <input type="number" asp-for="SpaceRequirement" required />
+    </div>
+
+    <div>
+        <label>Security Requirement:</label>
+        <select asp-for="SecurityRequirement" asp-items="@(new SelectList(Enum.GetValues(typeof(WebApplication1.Models.SecurityLevelEnum))))"></select>
+    </div>
+
+    <button type="submit">Save Changes</button>
 </form>
 
 <a asp-action="Index">Back to List</a>

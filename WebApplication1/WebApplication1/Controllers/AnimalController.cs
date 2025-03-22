@@ -22,7 +22,7 @@ public class AnimalController : Controller
     // GET: Animal/Create
     public IActionResult Create()
     {
-        ViewData["CategoryId"] = new SelectList(_context.Categories, "Id", "Name"); // Use CategoryId instead of Category
+        ViewData["CategoryId"] = new SelectList(_context.Categories, "Id", "Name");
         return View();
     }
 
@@ -54,7 +54,7 @@ public class AnimalController : Controller
         {
             return NotFound();
         }
-        ViewData["CategoryId"] = new SelectList(_context.Categories, "Id", "Name", animal.CategoryId); // Ensure CategoryId is set
+        ViewData["CategoryId"] = new SelectList(_context.Categories, "Id", "Name", animal.CategoryId);
         return View(animal);
     }
 
@@ -88,10 +88,9 @@ public class AnimalController : Controller
             }
             return RedirectToAction(nameof(Index));
         }
-        ViewData["CategoryId"] = new SelectList(_context.Categories, "Id", "Name", animal.CategoryId); // Ensure CategoryId is set
+        ViewData["CategoryId"] = new SelectList(_context.Categories, "Id", "Name", animal.CategoryId);
         return View(animal);
     }
-
     // GET: Animal/Delete/5
     [HttpPost]
     public async Task<IActionResult> Delete(int id)
@@ -107,7 +106,6 @@ public class AnimalController : Controller
 
         return RedirectToAction(nameof(Index));
     }
-
     private bool AnimalExists(int id)
     {
         return _context.Animals.Any(e => e.Id == id);
