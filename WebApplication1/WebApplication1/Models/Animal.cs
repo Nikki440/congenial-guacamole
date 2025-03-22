@@ -2,20 +2,19 @@
 {
     public class Animal
     {
-        public int Id { get; set; } // Auto-generated Id
-        public string Name { get; set; } = string.Empty;
-        public string Species { get; set; } = string.Empty;
-        // Foreign Key for Category
-        public int? CategoryId { get; set; }  // Nullable foreign key
-
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public string Species { get; set; }
+        public int? CategoryId { get; set; }
         public Category? Category { get; set; }
         public SizeEnum Size { get; set; }
         public DietaryEnum DietaryClass { get; set; }
         public ActivityPatternEnum ActivityPattern { get; set; }
-        public Boolean Prey { get; set; }
-        public Enclosure? Enclosure { get; set; }
+        public bool Prey { get; set; }
         public int SpaceRequirement { get; set; }
         public SecurityLevelEnum SecurityRequirement { get; set; }
+        public int? EnclosureId { get; set; } // Foreign key for Enclosure
+        public Enclosure? Enclosure { get; set; } // Navigation property for Enclosure
     }
 
     public enum DietaryEnum

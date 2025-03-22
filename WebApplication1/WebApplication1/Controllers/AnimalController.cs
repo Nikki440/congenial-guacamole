@@ -15,7 +15,10 @@ public class AnimalController : Controller
     // GET: Animal
     public async Task<IActionResult> Index()
     {
-        var animals = await _context.Animals.Include(a => a.Category).ToListAsync();
+        var animals = await _context.Animals
+            .Include(a => a.Category)
+            .Include(a => a.Enclosure) // Include the Enclosure
+            .ToListAsync();
         return View(animals);
     }
 
