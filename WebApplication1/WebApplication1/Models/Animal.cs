@@ -20,7 +20,7 @@
 
     public enum DietaryEnum
     {
-        Carnovore,
+        Carnivore,
         Herbivore,
         Omnivore
     }
