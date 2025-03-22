@@ -14,10 +14,8 @@ namespace WebApplication1.Data
             }
 
             // Seed Categories using Bogus
-            var categoryFaker = new Faker<Category>()
-                .RuleFor(c => c.Name, f => f.PickRandom(new[] { "Mammals", "Birds", "Reptiles", "Amphibians", "Fish" }));
-
-            var categories = categoryFaker.Generate(5);
+            var categoryNames = new[] { "Mammals", "Birds", "Reptiles", "Amphibians", "Fish" };
+            var categories = categoryNames.Select(name => new Category { Name = name }).ToList();
             context.Categories.AddRange(categories);
             context.SaveChanges();
 
