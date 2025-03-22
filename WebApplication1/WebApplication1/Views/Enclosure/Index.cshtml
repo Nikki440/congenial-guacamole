@@ -1,0 +1,33 @@
+﻿@model List<WebApplication1.Models.Enclosure>
+
+<h2>Enclosure List</h2>
+<button class="nav-item">
+    <a class="nav-link text-dark" asp-area="" asp-controller="Enclosure" asp-action="Create">Create</a>
+</button>
+<table border="1">
+    <tr>
+        <th>Name</th>
+        <th>Climate</th>
+        <th>Habitat Type</th>
+        <th>Security Level</th>
+        <th>Size</th>
+        <th>Actions</th>
+    </tr>
+    @foreach (var enclosure in Model)
+    {
+        <tr>
+            <td>@enclosure.Name</td>
+            <td>@enclosure.Climate</td>
+            <td>@enclosure.HabitatType</td>
+            <td>@enclosure.SecurityLevel</td>
+            <td>@enclosure.Size</td>
+            <td>
+                <form asp-area="" asp-controller="Enclosure" asp-action="Delete" method="post" style="display:inline;">
+                    <input type="hidden" name="id" value="@enclosure.Id" />
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                </form>
+                <a class="btn btn-primary" asp-area="" asp-controller="Enclosure" asp-action="Edit" asp-route-id="@enclosure.Id">Edit</a>
+            </td>
+        </tr>
+    }
+</table>
