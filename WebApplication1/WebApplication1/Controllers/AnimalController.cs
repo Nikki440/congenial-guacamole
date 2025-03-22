@@ -58,13 +58,14 @@ public class AnimalController : Controller
             return NotFound();
         }
         ViewData["CategoryId"] = new SelectList(_context.Categories, "Id", "Name", animal.CategoryId);
+        ViewData["EnclosureId"] = new SelectList(_context.Enclosures, "Id", "Name", animal.EnclosureId); // Add this line
         return View(animal);
     }
 
     // POST: Animal/Edit/5
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Species,CategoryId,Size,DietaryClass,ActivityPattern,Prey,SpaceRequirement,SecurityRequirement")] Animal animal)
+    public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Species,CategoryId,Size,DietaryClass,ActivityPattern,Prey,SpaceRequirement,SecurityRequirement,EnclosureId")] Animal animal)
     {
         if (id != animal.Id)
         {
@@ -92,6 +93,7 @@ public class AnimalController : Controller
             return RedirectToAction(nameof(Index));
         }
         ViewData["CategoryId"] = new SelectList(_context.Categories, "Id", "Name", animal.CategoryId);
+        ViewData["EnclosureId"] = new SelectList(_context.Enclosures, "Id", "Name", animal.EnclosureId); // Add this line
         return View(animal);
     }
     // GET: Animal/Delete/5

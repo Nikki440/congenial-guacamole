@@ -21,6 +21,11 @@
     </div>
 
     <div>
+        <label>Enclosure:</label>
+        <select asp-for="EnclosureId" asp-items="ViewBag.EnclosureId"></select>
+    </div>
+
+    <div>
         <label>Size:</label>
         <select asp-for="Size" asp-items="@(new SelectList(Enum.GetValues(typeof(WebApplication1.Models.SizeEnum))))"></select>
     </div>
