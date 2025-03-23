@@ -1,0 +1,70 @@
+﻿@model WebApplication1.Models.Enclosure
+
+<h2>Edit Enclosure</h2>
+
+<form asp-action="Edit" method="post">
+    <input type="hidden" asp-for="Id" />
+
+    <label>Name:</label>
+    <input type="text" asp-for="Name" required />
+    <br />
+
+    <label>Size (in square meters):</label>
+    <input type="number" asp-for="Size" step="0.1" required />
+    <br />
+
+    <label>Climate:</label>
+    <select asp-for="Climate" required>
+        <option value="Tropical">Tropical</option>
+        <option value="Temperate">Temperate</option>
+        <option value="Arctic">Arctic</option>
+    </select>
+    <br />
+
+    <label>Habitat Type:</label>
+    <select asp-for="HabitatType" required>
+        <option value="1">Forest</option>
+        <option value="2">Aquatic</option>
+        <option value="4">Desert</option>
+        <option value="8">Grassland</option>
+    </select>
+    <br />
+
+    <label>Security Level:</label>
+    <select asp-for="SecurityLevel" required>
+        <option value="Low">Low</option>
+        <option value="Medium">Medium</option>
+        <option value="High">High</option>
+    </select>
+    <br />
+
+    <button type="submit">Save Changes</button>
+</form>
+
+<a asp-action="Index">Back to List</a>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        var climate = '@Model.Climate';
+        var habitatType = '@Model.HabitatType';
+        var securityLevel = '@Model.SecurityLevel';
+
+        // climate
+        var climateSelect = document.querySelector("select[name='Climate']");
+        if (climateSelect) {
+            climateSelect.value = climate;
+        }
+
+        //habitattype
+        var habitatTypeSelect = document.querySelector("select[name='HabitatType']");
+        if (habitatTypeSelect) {
+            habitatTypeSelect.value = habitatType;
+        }
+
+        //securitylevel
+        var securityLevelSelect = document.querySelector("select[name='SecurityLevel']");
+        if (securityLevelSelect) {
+            securityLevelSelect.value = securityLevel;
+        }
+    });
+</script>
