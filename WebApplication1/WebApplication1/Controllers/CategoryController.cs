@@ -95,20 +95,28 @@ public class CategoryController : Controller
     [HttpPost]
     public async Task<IActionResult> Delete(int id)
     {
-        var category = await _context.Categories.FindAsync(id);
+        var category = await _context.Categories
+            .Include(c => c.Animals) // Haal ook de dieren op
+            .FirstOrDefaultAsync(c => c.Id == id);
+
         if (category == null)
         {
             return NotFound();
         }
 
-        _context.Categories.Remove(category);
-        await _context.SaveChangesAsync();
+        // Verwijder eerst alle dieren in de categorie
+        _context.Animals.RemoveRange(category.Animals);
 
+        // Daarna de categorie zelf verwijderen
+        _context.Categories.Remove(category);
+
+        await _context.SaveChangesAsync();
         return RedirectToAction(nameof(Index));
     }
-
     private bool CategoryExists(int id)
     {
         return _context.Categories.Any(e => e.Id == id);
     }
+
+
 }
