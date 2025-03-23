@@ -12,15 +12,29 @@ public class AnimalController : Controller
         _context = context;
     }
 
-    // GET: Animal
-    public async Task<IActionResult> Index()
+    // GET: Animal (With Search Functionality)
+    [HttpGet]
+    public async Task<IActionResult> Index(string? searchString)
     {
-        var animals = await _context.Animals
+        var animals = _context.Animals
             .Include(a => a.Category)
-            .Include(a => a.Enclosure) // Include the Enclosure
-            .ToListAsync();
-        return View(animals);
+            .Include(a => a.Enclosure)
+            .AsQueryable();
+
+        if (!string.IsNullOrEmpty(searchString))
+        {
+            animals = animals.Where(a =>
+                a.Name.Contains(searchString) ||
+                a.Species.Contains(searchString) ||
+                a.Category.Name.Contains(searchString) ||
+                a.Enclosure.Name.Contains(searchString)
+            );
+        }
+
+        return View(await animals.ToListAsync());
     }
+
+
 
     // GET: Animal/Create
     public IActionResult Create()
@@ -116,3 +130,5 @@ public class AnimalController : Controller
         return _context.Animals.Any(e => e.Id == id);
     }
 }
+
+
