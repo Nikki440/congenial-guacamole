@@ -14,11 +14,28 @@ namespace WebApplication1.Controllers
             _context = context;
         }
 
-        public async Task<IActionResult> Index()
+        // GET: Enclosure (With Search Functionality)
+        [HttpGet]
+        public async Task<IActionResult> Index(string? enclosureSearch)
         {
-            var enclosures = await _context.Enclosures.ToListAsync();
-            return View(enclosures);
+            var enclosures = _context.Enclosures.AsQueryable();
+
+            if (!string.IsNullOrEmpty(enclosureSearch))
+            {
+                enclosures = enclosures.Where(e =>
+                    e.Name.Contains(enclosureSearch) ||
+                    e.Size.ToString().Contains(enclosureSearch) ||
+                    e.Climate.ToString().Contains(enclosureSearch) ||   
+                    e.HabitatType.ToString().Contains(enclosureSearch) || 
+                    e.SecurityLevel.ToString().Contains(enclosureSearch)  
+                );
+            }
+
+            return View(await enclosures.ToListAsync());
         }
+
+
+
 
         // GET: Enclosure/Create
         public IActionResult Create()

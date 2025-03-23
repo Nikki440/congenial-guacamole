@@ -4,6 +4,12 @@
 <button class="nav-item">
     <a class="nav-link text-dark" asp-area="" asp-controller="Enclosure" asp-action="Create">Create</a>
 </button>
+
+<!-- Search Form -->
+<form asp-controller="Enclosure" asp-action="Index" method="get">
+    <input type="text" name="enclosureSearch" placeholder="Search" value="@Context.Request.Query["enclosureSearch"]" />
+    <button type="submit">Search</button>
+</form>
 <table border="1">
     <tr>
         <th>Name</th>
