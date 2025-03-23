@@ -20,6 +20,26 @@ namespace WebApplication1.Controllers
             return View(enclosures);
         }
 
+        // GET: Enclosure/Create
+        public IActionResult Create()
+        {
+            return View();
+        }
+
+        // POST: Enclosure/Create
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create([Bind("Name, Climate, HabitatType, SecurityLevel, Size")] Enclosure enclosure)
+        {
+            if (ModelState.IsValid)
+            {
+                _context.Enclosures.Add(enclosure);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
+            return View(enclosure);
+        }
+
         // POST: Enclosure/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
