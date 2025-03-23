@@ -7,6 +7,239 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/WebApplication1.styles.css" asp-append-version="true" />
+
+    <style>
+        /* Styling for the entire page background */
+        body {
+            background-color: #ffe4e1; /* Very light pink background for the page */
+            margin: 0;
+            padding: 0;
+            font-family: 'Comic Sans MS', cursive, sans-serif; /* Playful font for a cutesy vibe */
+            display: flex;
+            flex-direction: column; /* Ensures the footer stays at the bottom */
+            min-height: 110vh; /* Makes sure the footer is pushed to the bottom even if content is short */
+        }
+
+        /* Styling for the table */
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            border-radius: 15px; /* Soft rounded edges for the table */
+            overflow: hidden; /* Ensures rounded corners work */
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1); /* Soft shadow to make the table pop */
+            background-color: #fff5f8; /* Light pinkish background for the table */
+            margin-bottom: 100px; /* Adds space below the table */
+        }
+
+        th, td {
+            border: 2px solid #f0c0c0; /* Soft pink border */
+            padding: 12px 18px; /* Increased padding for a softer feel */
+            text-align: center; /* Center align text for a cuter look */
+            font-size: 1.1em; /* Slightly larger font size for a more fun appearance */
+        }
+
+        /* Background color for alternate rows */
+        tr:nth-child(odd) td {
+            background-color: #ffb3d9; /* Soft pink background for odd rows */
+            color: #fff; /* White text color for odd rows */
+        }
+
+        tr:nth-child(even) td {
+            background-color: #ffccff; /* Light lavender-pink background for even rows */
+            color: #fff; /* White text color for even rows */
+        }
+
+        th {
+            background-color: #f8d7e0; /* Light blush pink background for headers */
+            color: #8a2be2; /* Purple text for header */
+            font-weight: bold; /* Bold header text */
+            text-transform: uppercase; /* Capitalize header text */
+        }
+
+        /* Styling for buttons */
+        .btn {
+            border-radius: 20px; /* Extra rounded edges for a cutesy button appearance */
+            padding: 10px 20px; /* Increase padding for a more prominent button look */
+            text-decoration: none; /* Removes underline from links */
+            font-size: 1.1em; /* Slightly larger text for buttons */
+            transition: all 0.3s ease-in-out; /* Smooth transition for button hover effects */
+        }
+
+        .btn-danger {
+            background-color: #ff5c8f; /* Soft red-pink background for Delete button */
+            color: white; /* White text color */
+            border: 2px solid #ff3b70; /* Soft border to match the button color */
+        }
+
+        .btn-primary {
+            background-color: #ff87b5; /* Light pinkish background for Edit button */
+            color: white; /* White text color */
+            border: 2px solid #ff66a1; /* Soft border to match the button color */
+        }
+
+        .btn-create {
+            background-color: #ff87b5; /* Light pinkish color for the Create button */
+            color: white; /* White text color */
+            border: 2px solid #ff66a1; /* Soft border */
+        }
+
+        .btn:hover {
+            transform: scale(1.1); /* Slightly enlarge button on hover */
+            opacity: 0.9; /* Slight fade effect on hover */
+        }
+
+        /* Styling for button container to align buttons horizontally */
+        .button-container {
+            display: flex;
+            gap: 15px; /* Adds more space between buttons */
+            justify-content: center; /* Centers the buttons horizontally */
+        }
+
+        /* Styling for the search container to align the input and button horizontally */
+        .search-container {
+            display: flex;
+            gap: 10px; /* Adds space between the search bar and button */
+            justify-content: center; /* Centers the search bar and button horizontally */
+            margin-bottom: 20px; /* Adds space below the search bar */
+        }
+
+        /* Styling for the search bar */
+        .search-bar {
+            border-radius: 20px; /* Rounded edges for the search bar */
+            padding: 12px 20px; /* Increased padding for a cute look */
+            border: 2px solid #ff66a1; /* Soft pink border for the search bar */
+            background-color: #fff0f6; /* Very light pink background for the input field */
+            font-size: 1em; /* Slightly larger font size */
+            width: 300px; /* Fixed width for the search bar */
+        }
+
+        /* Styling for the search button */
+        .search-button {
+            border-radius: 20px; /* Rounded edges for the search button */
+            padding: 12px 20px; /* Increased padding */
+            background-color: #ff87b5; /* Light pinkish color for the button */
+            color: white; /* White text color */
+            border: 2px solid #ff66a1; /* Soft pink border */
+            font-size: 1.1em; /* Larger font size */
+            transition: all 0.3s ease-in-out; /* Smooth hover effect */
+        }
+
+            .search-button:hover {
+                background-color: #ff5c8f; /* Slightly darker pink on hover */
+                transform: scale(1.05); /* Slightly enlarge button on hover */
+            }
+
+        /* Styling for page headers */
+        h2 {
+            font-size: 2em; /* Larger heading size */
+            text-align: center; /* Center align the header */
+            color: #ff66a1; /* Pink color for the header */
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1); /* Soft shadow for the header */
+        }
+
+        /* Styling for the footer */
+        footer {
+            background-color: #ff87b5; /* Soft pink background for footer */
+            color: white; /* White text color */
+            padding: 20px; /* Padding inside the footer */
+            text-align: center; /* Center the text */
+            margin-top: auto; /* Pushes the footer to the bottom */
+            font-size: 1.7em; /* Larger text for footer */
+        }
+
+            footer p {
+                margin: 0;
+            }
+
+        /* Styling for checkboxes */
+        input[type="checkbox"] {
+            margin-top: 10px; /* Adds space above the checkbox */
+            margin-bottom: 20px; /* Adds space below the checkbox */
+            width: 20px; /* Makes the checkbox a little bigger */
+            height: 20px;
+            accent-color: #ff66a1; /* Soft pink color for the checkbox */
+        }
+
+        /* Styling for links */
+        a {
+            display: inline-block; /* Makes the link behave like a button */
+            padding: 12px 20px; /* Adds padding for a button-like appearance */
+            font-size: 1.2em; /* Larger text for links */
+            text-decoration: none; /* Removes underline from links */
+            color: white; /* White text color */
+            font-weight: bold; /* Bold links */
+            border-radius: 20px; /* Rounded corners for button-like effect */
+            background-color: #ffb3c6; /* Lighter pinkish background when not hovered */
+            transition: all 0.3s ease-in-out; /* Smooth transition for hover effect */
+        }
+
+            /* Hover effect for the link */
+            a:hover {
+                color: white; /* White text color on hover */
+                background-color: #ff5c8f; /* Slightly darker pink on hover */
+                transform: scale(1.1); /* Slightly enlarge the button on hover */
+            }
+
+        /* Styling for textboxes (input fields) */
+        input[type="text"], input[type="email"], input[type="password"], textarea {
+            border-radius: 20px; /* Rounded corners */
+            padding: 12px 20px; /* Increased padding for a cuter look */
+            border: 2px solid #ff66a1; /* Soft pink border */
+            background-color: #fff0f6; /* Light pink background */
+            font-size: 1em; /* Slightly larger font size */
+            width: 100%; /* Make the input fields take up the full width */
+            box-sizing: border-box; /* Ensures padding doesn't affect width */
+            transition: all 0.3s ease-in-out; /* Smooth transition */
+        }
+
+        /* Styling for dropdown (select) */
+        select {
+            border-radius: 20px; /* Rounded corners for select dropdown */
+            padding: 12px 20px; /* Increased padding for a cuter look */
+            border: 2px solid #ff66a1; /* Soft pink border */
+            background-color: #fff0f6; /* Light pink background */
+            font-size: 1em; /* Slightly larger font size */
+            width: 100%; /* Make the select take up the full width */
+            box-sizing: border-box; /* Ensures padding doesn't affect width */
+            transition: all 0.3s ease-in-out; /* Smooth transition */
+        }
+
+        /* Styling for spinbuttons (input type="number") */
+        input[type="number"] {
+            border-radius: 20px; /* Rounded corners */
+            padding: 12px 20px; /* Increased padding */
+            border: 2px solid #ff66a1; /* Soft pink border */
+            background-color: #fff0f6; /* Light pink background */
+            font-size: 1em; /* Slightly larger font size */
+            width: 100%; /* Full width */
+            box-sizing: border-box; /* Ensures padding doesn't affect width */
+            transition: all 0.3s ease-in-out; /* Smooth transition */
+        }
+
+        /* Optional: Styling for the submit button */
+        button[type="submit"] {
+            border-radius: 20px; /* Rounded edges for the submit button */
+            padding: 12px 20px; /* Increased padding */
+            background-color: #ff87b5; /* Light pinkish color for the button */
+            color: white; /* White text color */
+            border: 2px solid #ff66a1; /* Soft pink border */
+            font-size: 1.1em; /* Larger font size */
+            transition: all 0.3s ease-in-out; /* Smooth hover effect */
+        }
+
+            button[type="submit"]:hover {
+                background-color: #ff5c8f; /* Slightly darker pink on hover */
+                transform: scale(1.05); /* Slightly enlarge button on hover */
+            }
+
+    </style>
+
+
+
+
+
+
+
 </head>
 <body>
     <header>
@@ -20,16 +253,13 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
 	                        <a class="nav-link text-dark" asp-area="" asp-controller="Animal" asp-action="Index">Animals</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Enclosure" asp-action="Index">Enclosures</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Category" asp-action="Index">Animal-Categories</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Category" asp-action="Index">Animal Categories</a>
                         </li>
                     </ul>
                 </div>

@@ -1,15 +1,16 @@
 ﻿@model List<WebApplication1.Models.Enclosure>
 
 <h2>Enclosure List</h2>
-<button class="nav-item">
-    <a class="nav-link text-dark" asp-area="" asp-controller="Enclosure" asp-action="Create">Create</a>
-</button>
+<a class="btn btn-create" asp-controller="Enclosure" asp-action="Create">Create</a>
+
+
 
 <!-- Search Form -->
-<form asp-controller="Enclosure" asp-action="Index" method="get">
-    <input type="text" name="enclosureSearch" placeholder="Search" value="@Context.Request.Query["enclosureSearch"]" />
-    <button type="submit">Search</button>
+<form asp-controller="Enclosure" asp-action="Index" method="get" class="search-container">
+    <input type="text" class="search-bar" name="enclosureSearch" placeholder="Search" value="@Context.Request.Query["enclosureSearch"]" />
+    <button type="submit" class="search-button">Search</button>
 </form>
+
 <table border="1">
     <tr>
         <th>Name</th>

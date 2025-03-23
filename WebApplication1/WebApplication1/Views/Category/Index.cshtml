@@ -1,17 +1,16 @@
 ﻿@model List<WebApplication1.Models.Category>
 
 <h2>Animal categories</h2>
-<button class="nav-item">
-    <a class="nav-link text-dark" asp-area="" asp-controller="Category" asp-action="Create">Create</a>
-</button>
-<!-- Search Form -->
-<form asp-controller="Category" asp-action="Index" method="get">
-    <input type="text" name="categorySearch" placeholder="Search by Name" value="@Context.Request.Query["categorySearch"]" />
-    <button type="submit">Search</button>
+<a class="btn btn-create" asp-controller="Category" asp-action="Create">Create</a><!-- Search Form -->
+<form asp-controller="Category" asp-action="Index" method="get" class="search-container">
+    <input type="text" class="search-bar" name="categorySearch" placeholder="Search" value="@Context.Request.Query["categorySearch"]" />
+    <button type="submit" class="search-button">Search</button>
 </form>
+
 <table border="1">
     <tr>
         <th>Name</th>
+        <th>Actions</th>
     </tr>
     @foreach (var category in Model)
     {
@@ -22,7 +21,9 @@
                     <input type="hidden" name="id" value="@category.Id" />
                     <button type="submit" class="btn btn-danger">Delete</button>
                 </form>
-                <a class="btn btn-primary" asp-area="" asp-controller="Category" asp-action="Edit" asp-route-id="@category.Id">Edit</a>
+
+                <a class="btn btn-danger" asp-area="" asp-controller="Category" asp-action="Edit" asp-route-id="@category.Id">Edit</a>
+
             </td>
         </tr>
     }
