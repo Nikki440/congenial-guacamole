@@ -4,6 +4,11 @@
 <button class="nav-item">
     <a class="nav-link text-dark" asp-area="" asp-controller="Category" asp-action="Create">Create</a>
 </button>
+<!-- Search Form -->
+<form asp-controller="Category" asp-action="Index" method="get">
+    <input type="text" name="categorySearch" placeholder="Search by Name" value="@Context.Request.Query["categorySearch"]" />
+    <button type="submit">Search</button>
+</form>
 <table border="1">
     <tr>
         <th>Name</th>

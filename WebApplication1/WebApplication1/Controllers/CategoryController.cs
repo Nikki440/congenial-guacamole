@@ -12,14 +12,22 @@ public class CategoryController : Controller
         _context = context;
     }
 
-    // GET: Category
-    public async Task<IActionResult> Index()
+    // GET: Category (With Search Functionality)
+    [HttpGet]
+    public async Task<IActionResult> Index(string? categorySearch)
     {
-        var categories = await _context.Categories
-            .Include(c => c.Animals) // Include related animals
-            .ToListAsync();
-        return View(categories);
+        var categories = _context.Categories.AsQueryable();
+
+        if (!string.IsNullOrEmpty(categorySearch))
+        {
+            categories = categories.Where(c =>
+                c.Name.Contains(categorySearch)  // Search by Name
+            );
+        }
+
+        return View(await categories.ToListAsync());
     }
+
 
 
     // GET: Category/Create
