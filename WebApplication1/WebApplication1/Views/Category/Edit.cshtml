@@ -1,5 +1,26 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
+﻿@model WebApplication1.Models.Category
+
+<h2>Edit Animal</h2>
+
+<form asp-action="Edit" method="post">
+    <input type="hidden" asp-for="Id" />
+
+    <div>
+        <label>Name:</label>
+        <input type="text" asp-for="Name" required />
+    </div>
+
+    <div>
+        <label>Id:</label>
+        <input type="text" asp-for="Id" required />
+    </div>
+    <div>
+        <label>Id:</label>
+        <input type="text" asp-for="Id" required />
+    </div>
+
+
+    <button type="submit">Save Changes</button>
+</form>
+
+<a asp-action="Index">Back to List</a>

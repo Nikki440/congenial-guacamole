@@ -15,9 +15,12 @@ public class CategoryController : Controller
     // GET: Category
     public async Task<IActionResult> Index()
     {
-        var categories = await _context.Categories.ToListAsync();
+        var categories = await _context.Categories
+            .Include(c => c.Animals) // Include related animals
+            .ToListAsync();
         return View(categories);
     }
+
 
     // GET: Category/Create
     public IActionResult Create()
