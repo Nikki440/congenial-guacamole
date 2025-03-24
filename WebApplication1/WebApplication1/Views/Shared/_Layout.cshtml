@@ -40,12 +40,12 @@
 
         /* Background color for alternate rows */
         tr:nth-child(odd) td {
-            background-color: #ffb3d9; /* Soft pink background for odd rows */
+            background-color: hotpink; /* Soft pink background for odd rows */
             color: #fff; /* White text color for odd rows */
         }
 
         tr:nth-child(even) td {
-            background-color: #ffccff; /* Light lavender-pink background for even rows */
+            background-color: deeppink; /* Light lavender-pink background for even rows */
             color: #fff; /* White text color for even rows */
         }
 
@@ -231,6 +231,39 @@
                 background-color: #ff5c8f; /* Slightly darker pink on hover */
                 transform: scale(1.05); /* Slightly enlarge button on hover */
             }
+        /* Ensure navbar buttons have white text */
+        .btn-nav {
+            background-color: #ff87b5; /* Light pink */
+            color: white !important; /* Force white text */
+            border: 2px solid #ff66a1; /* Pink border */
+            border-radius: 20px;
+            padding: 10px 15px;
+            transition: all 0.3s ease-in-out;
+            font-weight: bold;
+            text-align: center;
+        }
+
+            /* Ensure hover effect maintains white text */
+            .btn-nav:hover {
+                background-color: #ff5c8f;
+                color: white !important; /* Keep text white */
+                transform: scale(1.05);
+                opacity: 0.9;
+            }
+
+
+        /* Adds spacing between navigation items */
+        .navbar-nav {
+            display: flex;
+            gap: 10px; /* Adjust gap between buttons */
+        }
+
+            .navbar-nav .nav-link {
+                color: white !important;
+            }
+
+  
+
 
     </style>
 
