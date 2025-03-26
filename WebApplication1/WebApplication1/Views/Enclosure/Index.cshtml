@@ -25,7 +25,7 @@
             <td>@enclosure.Climate</td>
             <td>@enclosure.HabitatType</td>
             <td>@enclosure.SecurityLevel</td>
-            <td>@enclosure.Size</td>
+            <td>@enclosure.Size.ToString("F2")</td>
             <td>
                 <form asp-area="" asp-controller="Enclosure" asp-action="Delete" method="post" style="display:inline;">
                     <input type="hidden" name="id" value="@enclosure.Id" />
