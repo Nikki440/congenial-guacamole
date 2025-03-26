@@ -8,7 +8,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<DBContextDatabase>(options =>
-    options.UseSqlite(builder.Configuration.GetConnectionString("DBConnection")));
+    options.UseSqlite("Data Source=mydatabase.db"));
 
 var app = builder.Build();
 

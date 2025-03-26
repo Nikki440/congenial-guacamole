@@ -11,7 +11,7 @@ using WebApplication1.Models;
 namespace WebApplication1.Migrations
 {
     [DbContext(typeof(DBContextDatabase))]
-    [Migration("20250326143952_InitialCreate")]
+    [Migration("20250326150615_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
