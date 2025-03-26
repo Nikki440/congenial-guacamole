@@ -14,27 +14,17 @@
     <br />
 
     <label>Climate:</label>
-    <select asp-for="Climate" required>
-        <option value="Tropical">Tropical</option>
-        <option value="Temperate">Temperate</option>
-        <option value="Arctic">Arctic</option>
+    <select asp-for="Climate" required asp-items="@(new SelectList(Enum.GetValues(typeof(WebApplication1.Models.ClimateEnum))))">
     </select>
     <br />
 
     <label>Habitat Type:</label>
-    <select asp-for="HabitatType" required>
-        <option value="1">Forest</option>
-        <option value="2">Aquatic</option>
-        <option value="4">Desert</option>
-        <option value="8">Grassland</option>
+    <select asp-for="HabitatType" required asp-items="@(new SelectList(Enum.GetValues(typeof(WebApplication1.Models.flagsEnum))))">
     </select>
     <br />
 
     <label>Security Level:</label>
-    <select asp-for="SecurityLevel" required>
-        <option value="Low">Low</option>
-        <option value="Medium">Medium</option>
-        <option value="High">High</option>
+    <select asp-for="SecurityLevel" required asp-items="@(new SelectList(Enum.GetValues(typeof(WebApplication1.Models.SecurityLevel))))">
     </select>
     <br />
 
