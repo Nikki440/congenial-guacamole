@@ -25,17 +25,38 @@ namespace WebApplication1.Controllers
                 enclosures = enclosures.Where(e =>
                     e.Name.Contains(enclosureSearch) ||
                     e.Size.ToString().Contains(enclosureSearch) ||
-                    e.Climate.ToString().Contains(enclosureSearch) ||   
-                    e.HabitatType.ToString().Contains(enclosureSearch) || 
-                    e.SecurityLevel.ToString().Contains(enclosureSearch)  
+                    e.Climate.ToString().Contains(enclosureSearch) ||
+                    e.HabitatType.ToString().Contains(enclosureSearch) ||
+                    e.SecurityLevel.ToString().Contains(enclosureSearch)
                 );
             }
 
             return View(await enclosures.ToListAsync());
         }
 
+        [HttpGet]
+        public async Task<IActionResult> AnimalsInEnclosure(int enclosureId)
+        {
+            var animals = await _context.Animals
+                .Where(a => a.Enclosure != null && a.Enclosure.Id == enclosureId)
+                .ToListAsync();
 
+            var enclosure = await _context.Enclosures
+                .FirstOrDefaultAsync(e => e.Id == enclosureId);
 
+            if (enclosure == null)
+            {
+                return NotFound();
+            }
+
+            var viewModel = new AnimalsInEnclosureViewModel
+            {
+                Enclosure = enclosure,
+                Animals = animals
+            };
+
+            return View(viewModel);
+        }
 
         // GET: Enclosure/Create
         public IActionResult Create()
@@ -106,7 +127,6 @@ namespace WebApplication1.Controllers
             }
             return View(enclosure);
         }
-
 
         // POST: Enclosure/Delete/5
         [HttpPost]

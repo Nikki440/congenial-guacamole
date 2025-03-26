@@ -1,0 +1,23 @@
+﻿@model WebApplication1.Models.AnimalsInEnclosureViewModel
+
+<h2>Animals in @Model.Enclosure.Name</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Species</th>
+            <th>Feed Time</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var animal in Model.Animals)
+        {
+            <tr>
+                <td>@animal.Name</td>
+                <td>@animal.Species</td>
+                <td>@animal.FeedingTime</td>
+            </tr>
+        }
+    </tbody>
+</table>
