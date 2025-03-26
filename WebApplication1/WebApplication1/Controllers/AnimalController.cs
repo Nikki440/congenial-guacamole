@@ -12,8 +12,54 @@ public class AnimalController : Controller
         _context = context;
     }
 
+    [HttpPost]
+    public async Task<IActionResult> AutoAssign(bool resetEnclosures)
+    {
+        var animals = await _context.Animals.ToListAsync();
+
+        if (resetEnclosures)
+        {
+            // Verwijder alle verblijven en huidige indeling
+            _context.Enclosures.RemoveRange(_context.Enclosures);
+            _context.SaveChanges();
+        }
+
+        var enclosures = await _context.Enclosures.ToListAsync();
+
+        foreach (var animal in animals.Where(a => a.EnclosureId == null || a.EnclosureId == 0))
+        {
+            Enclosure? assignedEnclosure = enclosures
+                .FirstOrDefault(e => e.SpaceLeft() >= animal.SpaceRequirement);
+
+            if (assignedEnclosure == null)
+            {
+                // Maak nieuw verblijf als er geen ruimte is
+                assignedEnclosure = new Enclosure
+                {
+                    Name = "New Enclosure " + (enclosures.Count + 1),
+                    Size = 500, // Default grootte (aanpasbaar)
+                    SecurityLevel = SecurityLevelEnum.Medium, // Pas aan op basis van dieren
+                    Climate = ClimateEnum.Temperate // Of bepaal via diergegevens
+                };
+
+                _context.Enclosures.Add(assignedEnclosure);
+                await _context.SaveChangesAsync();
+                enclosures.Add(assignedEnclosure);
+            }
+
+            // Koppel dier aan verblijf
+            animal.EnclosureId = assignedEnclosure.Id;
+            _context.Update(animal);
+        }
+
+        await _context.SaveChangesAsync();
+
+        return RedirectToAction(nameof(Index));
+    }
+
+
     // GET: Animal (With Search Functionality and filter)
-    [HttpGet]
+        [HttpGet]
     public async Task<IActionResult> Index(string? searchString, int? categoryId, string timeOfDay)
     {
         var animals = _context.Animals

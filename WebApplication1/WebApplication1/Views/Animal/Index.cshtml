@@ -44,6 +44,10 @@
 
 <a class="btn btn-create" asp-controller="Animal" asp-action="Create">Create new animal</a>
 
+<form asp-action="AutoAssign" method="post">
+	<button type="submit" class="btn btn-primary">AutoAssign Animals</button>
+</form>
+
 <table>
     <!-- Table Headers -->
     <tr>
@@ -76,14 +80,14 @@
             <td>@animal.SpaceRequirement</td>
             <td>@animal.SecurityRequirement</td>
             <td>
-                @if (animal.FeedingTime != null)
-                {
-                    @animal.FeedingTime
-                }
-                else
-                {
-                    <span>No feeding time set</span>
-                }
+	            @if (animal.FeedingTime != null)
+	            {
+		            @animal.FeedingTime
+	            }
+	            else
+	            {
+		            <span>No feeding time set</span>
+	            }
             </td>
             <td>
                 <!-- Actions: Edit and Delete -->

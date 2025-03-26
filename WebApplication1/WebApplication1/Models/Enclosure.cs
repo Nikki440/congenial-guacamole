@@ -9,8 +9,15 @@
         public flagsEnum HabitatType { get; set; }
         public SecurityLevelEnum SecurityLevel { get; set; }
         public double Size { get; set; }
- 
+
+        // Method to calculate remaining space in the enclosure
+        public double SpaceLeft()
+        {
+            double usedSpace = Animals.Sum(a => a.SpaceRequirement);
+            return Size - usedSpace;
+        }
     }
+
 
     public enum ClimateEnum
     {
