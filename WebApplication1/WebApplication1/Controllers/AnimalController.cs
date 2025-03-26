@@ -56,10 +56,25 @@ public class AnimalController : Controller
 
         return RedirectToAction(nameof(Index));
     }
+    public async Task<IActionResult> RemoveAllAnimalsFromEnclosures()
+    {
+        var animals = await _context.Animals.ToListAsync();
+
+        foreach (var animal in animals)
+        {
+            animal.EnclosureId = null; // Or use `0` if your database doesn't allow null
+            _context.Update(animal);
+        }
+
+        await _context.SaveChangesAsync();
+
+        return RedirectToAction(nameof(Index));
+    }
+
 
 
     // GET: Animal (With Search Functionality and filter)
-        [HttpGet]
+    [HttpGet]
     public async Task<IActionResult> Index(string? searchString, int? categoryId, string timeOfDay)
     {
         var animals = _context.Animals

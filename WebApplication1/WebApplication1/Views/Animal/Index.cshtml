@@ -44,9 +44,16 @@
 
 <a class="btn btn-create" asp-controller="Animal" asp-action="Create">Create new animal</a>
 
-<form asp-action="AutoAssign" method="post">
-	<button type="submit" class="btn btn-primary">AutoAssign Animals</button>
-</form>
+<div class="d-flex">
+	<form asp-action="AutoAssign" method="post" class="me-2">
+        <button type="submit" class="btn btn-danger">AutoAssign Animals Without An Enclosure</button>
+	</form>
+	<form asp-action="RemoveAllAnimalsFromEnclosures" method="post">
+		<button type="submit" class="btn btn-danger">Remove All Animals from Enclosures</button>
+	</form>
+</div>
+
+
 
 <table>
     <!-- Table Headers -->
