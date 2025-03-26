@@ -12,22 +12,32 @@ public class CategoryController : Controller
         _context = context;
     }
 
-    // GET: Category (With Search Functionality)
+    // GET: Category (With Search and Enclosure Filter)
     [HttpGet]
-    public async Task<IActionResult> Index(string? categorySearch)
+    public async Task<IActionResult> Index(string? categorySearch, int? enclosureId)
     {
-        var categories = _context.Categories.AsQueryable();
+        var categories = _context.Categories
+            .Include(c => c.Animals) // Include related Animals
+            .ThenInclude(a => a.Enclosure) // Include Enclosure details
+            .AsQueryable();
 
+        // Apply search filter
         if (!string.IsNullOrEmpty(categorySearch))
         {
-            categories = categories.Where(c =>
-                c.Name.Contains(categorySearch)  // Search by Name
-            );
+            categories = categories.Where(c => c.Name.Contains(categorySearch));
         }
 
-        return View(await categories.ToListAsync());
-    }
+        // Apply enclosure filter
+        if (enclosureId.HasValue)
+        {
+            categories = categories.Where(c => c.Animals.Any(a => a.EnclosureId == enclosureId.Value));
+        }
 
+        // Populate dropdown list for Enclosures
+        ViewData["Enclosures"] = new SelectList(await _context.Enclosures.ToListAsync(), "Id", "Name");
+
+        return View(await categories.ToListAsync()); // Return filtered category list
+    }
 
 
     // GET: Category/Create

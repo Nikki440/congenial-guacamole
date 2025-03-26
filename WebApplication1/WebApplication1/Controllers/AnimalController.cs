@@ -12,7 +12,7 @@ public class AnimalController : Controller
         _context = context;
     }
 
-    // GET: Animal (With Search Functionality)
+    // GET: Animal (With Search Functionality and filter)
     [HttpGet]
     public async Task<IActionResult> Index(string? searchString, int? categoryId)
     {

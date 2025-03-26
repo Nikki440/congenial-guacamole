@@ -2,11 +2,35 @@
 
 <h2>Animal List</h2>
 <a class="btn btn-create" asp-controller="Animal" asp-action="Create">Create</a>
+
 <!-- Search Form -->
 <form asp-controller="Animal" asp-action="Index" method="get" class="search-container">
     <input type="text" class="search-bar" name="searchString" placeholder="Search" value="@Context.Request.Query["searchString"]" />
     <button type="submit" class="search-button">Search</button>
 </form>
+
+<!-- Filter Form -->
+<select name="categoryId">
+        <option value="">All Categories</option>
+        @foreach (var category in ViewData["Categories"] as SelectList)
+        {
+            <option value="@category.Value" selected="@(category.Value == Context.Request.Query["categoryId"] ? "selected" : null)">
+                @category.Text
+            </option>
+        }
+    </select>
+
+    <select name="enclosureId">
+        <option value="">All Enclosures</option>
+        @foreach (var enclosure in ViewData["Enclosures"] as SelectList)
+        {
+            <option value="@enclosure.Value" selected="@(enclosure.Value == Context.Request.Query["enclosureId"] ? "selected" : null)">
+                @enclosure.Text
+            </option>
+        }
+    </select>
+
+    <button type="submit">Filter</button>
 
 
 <table border="1">
@@ -25,50 +49,24 @@
     </tr>
     @foreach (var animal in Model)
     {
-	    <tr>
-		    <td>@animal.Name</td>
-		    <td>@animal.Species</td>
-		    <td>@animal.Category?.Name</td>
-		    <td>@animal.Enclosure?.Name</td>
-		    <td>@animal.Size</td>
-		    <td>@animal.DietaryClass</td>
-		    <td>@animal.ActivityPattern</td>
-		    <td>@(animal.Prey ? "Yes" : "No")</td>
-		    <td>@animal.SpaceRequirement</td>
-		    <td>@animal.SecurityRequirement</td>
-		    <td>
-			    <form asp-area="" asp-controller="Animal" asp-action="Delete" method="post" style="display:inline;">
-				    <input type="hidden" name="id" value="@animal.Id" />
-				    <button type="submit" class="btn btn-danger">Delete</button>
-			    </form>
-			    <a class="btn btn-primary" asp-area="" asp-controller="Animal" asp-action="Edit" asp-route-id="@animal.Id">Edit</a>
-		    </td>
-	    </tr>
-	    <form asp-action="Index" method="get">
-		    <input type="text" name="searchString" value="@Context.Request.Query["searchString"]" placeholder="Search..." />
-
-		    <select name="categoryId">
-			    <option value="">All Categories</option>
-			    @foreach (var category in ViewData["Categories"] as SelectList)
-			    {
-				    <option value="@category.Value" selected="@(category.Value == Context.Request.Query["categoryId"] ? "selected" : null)">
-					    @category.Text
-				    </option>
-			    }
-		    </select>
-
-		    <select name="enclosureId">
-			    <option value="">All Enclosures</option>
-			    @foreach (var enclosure in ViewData["Enclosures"] as SelectList)
-			    {
-				    <option value="@enclosure.Value" selected="@(enclosure.Value == Context.Request.Query["enclosureId"] ? "selected" : null)">
-					    @enclosure.Text
-				    </option>
-			    }
-		    </select>
-
-		    <button type="submit">Filter</button>
-	    </form>
-
+        <tr>
+            <td>@animal.Name</td>
+            <td>@animal.Species</td>
+            <td>@animal.Category?.Name</td>
+            <td>@animal.Enclosure?.Name</td>
+            <td>@animal.Size</td>
+            <td>@animal.DietaryClass</td>
+            <td>@animal.ActivityPattern</td>
+            <td>@(animal.Prey ? "Yes" : "No")</td>
+            <td>@animal.SpaceRequirement</td>
+            <td>@animal.SecurityRequirement</td>
+            <td>
+                <form asp-area="" asp-controller="Animal" asp-action="Delete" method="post" style="display:inline;">
+                    <input type="hidden" name="id" value="@animal.Id" />
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                </form>
+                <a class="btn btn-primary" asp-area="" asp-controller="Animal" asp-action="Edit" asp-route-id="@animal.Id">Edit</a>
+            </td>
+        </tr>
     }
 </table>
