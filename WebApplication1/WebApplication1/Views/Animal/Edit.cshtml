@@ -51,11 +51,17 @@
     </div>
 
     <div>
-        <label>Security Requirement:</label>
-        <select asp-for="SecurityRequirement" asp-items="@(new SelectList(Enum.GetValues(typeof(WebApplication1.Models.SecurityLevelEnum))))"></select>
+	    <label>Security Requirement:</label>
+	    <select asp-for="SecurityRequirement" asp-items="@(new SelectList(Enum.GetValues(typeof(WebApplication1.Models.SecurityLevelEnum))))"></select>
     </div>
-
+    <div class="form-group">
+	    <label asp-for="FeedingTime" class="control-label"></label>
+	    <input asp-for="FeedingTime" class="form-control" type="datetime-local" />
+	    <span asp-validation-for="FeedingTime" class="text-danger"></span>
+    </div>
+    <br />
     <button type="submit">Save Changes</button>
+    <br />
 </form>
-
+<br />
 <a asp-action="Index">Back to List</a>

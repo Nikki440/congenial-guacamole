@@ -75,6 +75,15 @@ public class AnimalController : Controller
     {
         if (ModelState.IsValid)
         {
+            // Assign a random feeding time here
+            Random random = new Random();
+            var randomHour = random.Next(0, 24); // Random hour between 0 and 23
+            var randomMinute = random.Next(0, 60); // Random minute between 0 and 59
+
+            // Assign a random time within a specific date (e.g., today)
+            animal.FeedingTime = DateTime.Today.AddHours(randomHour).AddMinutes(randomMinute);
+
+            // Add the animal to the database
             _context.Add(animal);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
@@ -82,6 +91,7 @@ public class AnimalController : Controller
         ViewData["CategoryId"] = new SelectList(_context.Categories, "Id", "Name", animal.CategoryId);
         return View(animal);
     }
+
 
     // GET: Animal/Edit/5
     public async Task<IActionResult> Edit(int? id)
@@ -104,7 +114,7 @@ public class AnimalController : Controller
     // POST: Animal/Edit/5
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Species,CategoryId,Size,DietaryClass,ActivityPattern,Prey,SpaceRequirement,SecurityRequirement,EnclosureId")] Animal animal)
+    public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Species,CategoryId,Size,DietaryClass,ActivityPattern,Prey,SpaceRequirement,SecurityRequirement,EnclosureId,FeedingTime")] Animal animal)
     {
         if (id != animal.Id)
         {

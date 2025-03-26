@@ -15,6 +15,7 @@
         public SecurityLevelEnum SecurityRequirement { get; set; }
         public int? EnclosureId { get; set; } // Foreign key for Enclosure
         public Enclosure? Enclosure { get; set; } // Navigation property for Enclosure
+        public DateTime? FeedingTime { get; set; }//feedingTime
     }
 
     public enum DietaryEnum
