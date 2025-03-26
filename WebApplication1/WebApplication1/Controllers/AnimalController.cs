@@ -75,13 +75,13 @@ public class AnimalController : Controller
     {
         if (ModelState.IsValid)
         {
-            // Assign a random feeding time here
             Random random = new Random();
             var randomHour = random.Next(0, 24); // Random hour between 0 and 23
             var randomMinute = random.Next(0, 60); // Random minute between 0 and 59
 
             // Assign a random time within a specific date (e.g., today)
             animal.FeedingTime = DateTime.Today.AddHours(randomHour).AddMinutes(randomMinute);
+
 
             // Add the animal to the database
             _context.Add(animal);
@@ -141,10 +141,12 @@ public class AnimalController : Controller
             }
             return RedirectToAction(nameof(Index));
         }
+
         ViewData["CategoryId"] = new SelectList(_context.Categories, "Id", "Name", animal.CategoryId);
-        ViewData["EnclosureId"] = new SelectList(_context.Enclosures, "Id", "Name", animal.EnclosureId); // Add this line
+        ViewData["EnclosureId"] = new SelectList(_context.Enclosures, "Id", "Name", animal.EnclosureId);
         return View(animal);
     }
+
     // GET: Animal/Delete/5
     [HttpPost]
     public async Task<IActionResult> Delete(int id)
