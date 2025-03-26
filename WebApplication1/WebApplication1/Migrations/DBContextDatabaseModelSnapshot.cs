@@ -35,7 +35,7 @@ namespace WebApplication1.Migrations
                     b.Property<int?>("EnclosureId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<DateTime?>("FeedingTime")
+                    b.Property<TimeSpan?>("FeedingTime")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Name")

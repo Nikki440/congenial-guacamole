@@ -11,7 +11,7 @@ using WebApplication1.Models;
 namespace WebApplication1.Migrations
 {
     [DbContext(typeof(DBContextDatabase))]
-    [Migration("20250326151456_InitialCreate")]
+    [Migration("20250326160852_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -38,7 +38,7 @@ namespace WebApplication1.Migrations
                     b.Property<int?>("EnclosureId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<DateTime?>("FeedingTime")
+                    b.Property<TimeSpan?>("FeedingTime")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Name")

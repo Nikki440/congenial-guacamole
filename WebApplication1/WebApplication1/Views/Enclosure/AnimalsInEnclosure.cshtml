@@ -16,7 +16,7 @@
             <tr>
                 <td>@animal.Name</td>
                 <td>@animal.Species</td>
-                <td>@animal.FeedingTime</td>
+                <td>@animal.FeedingTime?.ToString(@"hh\:mm")</td>
             </tr>
         }
     </tbody>

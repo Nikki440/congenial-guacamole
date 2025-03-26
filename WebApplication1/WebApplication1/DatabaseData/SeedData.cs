@@ -44,7 +44,7 @@ namespace WebApplication1.Data
                 .RuleFor(a => a.SpaceRequirement, f => f.Random.Double(10, 200))
                 .RuleFor(a => a.SecurityRequirement, f => f.PickRandom<SecurityLevelEnum>())
                 .RuleFor(a => a.SpaceRequirement, f => f.Random.Int(10, 200))
-                .RuleFor(a => a.FeedingTime, f => f.Date.Between(DateTime.Now.AddHours(-12), DateTime.Now.AddHours(12)));
+                .RuleFor(a => a.FeedingTime, f => f.Date.Between(DateTime.Now.AddHours(-12), DateTime.Now.AddHours(12)).TimeOfDay);
 
             var animals = animalFaker.Generate(20);
             context.Animals.AddRange(animals);

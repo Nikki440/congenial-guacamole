@@ -15,7 +15,7 @@
         public SecurityLevelEnum SecurityRequirement { get; set; }
         public int? EnclosureId { get; set; } // Foreign key for Enclosure
         public Enclosure? Enclosure { get; set; } // Navigation property for Enclosure
-        public DateTime? FeedingTime { get; set; }//feedingTime
+        public TimeSpan? FeedingTime { get; set; } // FeedingTime as TimeSpan
     }
 
     public enum DietaryEnum
@@ -38,23 +38,23 @@
 
     public enum SizeEnum
     {
-        Microscopic, 
-        VerySmall, 
-        Small, 
-        Medium, 
-        Large, 
+        Microscopic,
+        VerySmall,
+        Small,
+        Medium,
+        Large,
         VeryLarge
     }
     public enum ActivityPatternEnum
     {
-        Diurnal, 
-        Nocturnal, 
+        Diurnal,
+        Nocturnal,
         Cathemeral
     }
     public enum SecurityLevelEnum
     {
-        Low, 
-        Medium, 
+        Low,
+        Medium,
         High
     }
 }

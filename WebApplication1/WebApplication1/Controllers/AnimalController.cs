@@ -141,7 +141,7 @@ public class AnimalController : Controller
             var randomMinute = random.Next(0, 60); // Random minute between 0 and 59
 
             // Assign a random time within a specific date (e.g., today)
-            animal.FeedingTime = DateTime.Today.AddHours(randomHour).AddMinutes(randomMinute);
+            animal.FeedingTime = DateTime.Today.AddHours(randomHour).AddMinutes(randomMinute).TimeOfDay;
 
 
             // Add the animal to the database

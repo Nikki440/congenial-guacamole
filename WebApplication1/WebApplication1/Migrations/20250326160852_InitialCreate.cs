@@ -76,7 +76,7 @@ namespace WebApplication1.Migrations
                     SpaceRequirement = table.Column<int>(type: "INTEGER", nullable: false),
                     SecurityRequirement = table.Column<int>(type: "INTEGER", nullable: false),
                     EnclosureId = table.Column<int>(type: "INTEGER", nullable: true),
-                    FeedingTime = table.Column<DateTime>(type: "TEXT", nullable: true),
+                    FeedingTime = table.Column<TimeSpan>(type: "TEXT", nullable: true),
                     ZooId = table.Column<int>(type: "INTEGER", nullable: true)
                 },
                 constraints: table =>
