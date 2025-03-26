@@ -81,6 +81,7 @@
             background-color: #ff87b5; /* Light pinkish color for the Create button */
             color: white; /* White text color */
             border: 2px solid #ff66a1; /* Soft border */
+
         }
 
         .btn:hover {
@@ -157,7 +158,6 @@
             margin-bottom: 20px; /* Adds space below the checkbox */
             width: 20px; /* Makes the checkbox a little bigger */
             height: 20px;
-            accent-color: #ff66a1; /* Soft pink color for the checkbox */
         }
 
         /* Styling for links */
@@ -262,8 +262,29 @@
                 color: white !important;
             }
 
-  
+        /* Styling for the Sunrise button */
+        button[type="submit"][value="sunrise"] {
+            background-color: #FFD700; /* Light yellow for sunrise */
+            border: 2px solid #C76E00; /* Soft border to match the button color */
+	        color: white;
+        }
 
+        button[type="submit"][value="sunrise"]:hover {
+	        background-color: #ffb300; /* Darker yellow on hover */
+                border: 2px solid #C76E00 /* Soft border to match the button color */
+        }
+
+        /* Styling for the Sunset button */
+        button[type="submit"][value="sunset"] {
+	        background-color: blue; /* Sunset red/orange */
+	        color: white;
+            border: 2px solid #001861; /* Soft border to match the button color */
+        }
+
+        button[type="submit"][value="sunset"]:hover {
+	        background-color: darkblue; /* Darker red on hover */
+                border: 2px solid #001861 /* Soft border to match the button color */
+        }
 
     </style>
 
@@ -304,12 +325,6 @@
             @RenderBody()
         </main>
     </div>
-
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; Groep 21 - Congenial Guacamole
-        </div>
-    </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>

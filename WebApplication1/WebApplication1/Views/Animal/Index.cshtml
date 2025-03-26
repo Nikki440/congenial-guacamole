@@ -1,38 +1,48 @@
 ﻿@model List<WebApplication1.Models.Animal>
 
 <h2>Animal List</h2>
-<a class="btn btn-create" asp-controller="Animal" asp-action="Create">Create</a>
 
 <!-- Search & Filter Form -->
 <form asp-controller="Animal" asp-action="Index" method="get" class="search-container">
-    <!-- Search Bar -->
-    <input type="text" class="search-bar" name="searchString" placeholder="Search" value="@Context.Request.Query["searchString"]" />
+	<!-- Search Bar -->
+	<input type="text" class="search-bar" name="searchString" placeholder="Search" value="@Context.Request.Query["searchString"]" />
 
-    <!-- Category Filter Dropdown -->
-    <select name="categoryId">
-        <option value="">All Categories</option>
-        @foreach (var category in ViewData["Categories"] as SelectList)
-        {
-            <option value="@category.Value" selected="@(category.Value == Context.Request.Query["categoryId"] ? "selected" : null)">
-                @category.Text
-            </option>
-        }
-    </select>
+	<!-- Category Filter Dropdown -->
+	<select name="categoryId">
+		<option value="">All Categories</option>
+		@foreach (var category in ViewData["Categories"] as SelectList)
+		{
+			<option value="@category.Value" selected="@(category.Value == Context.Request.Query["categoryId"] ? "selected" : null)">
+				@category.Text
+			</option>
+		}
+	</select>
 
-    <!-- Enclosure Filter Dropdown -->
-    <select name="enclosureId">
-        <option value="">All Enclosures</option>
-        @foreach (var enclosure in ViewData["Enclosures"] as SelectList)
-        {
-            <option value="@enclosure.Value" selected="@(enclosure.Value == Context.Request.Query["enclosureId"] ? "selected" : null)">
-                @enclosure.Text
-            </option>
-        }
-    </select>
+	<!-- Enclosure Filter Dropdown -->
+	<select name="enclosureId">
+		<option value="">All Enclosures</option>
+		@foreach (var enclosure in ViewData["Enclosures"] as SelectList)
+		{
+			<option value="@enclosure.Value" selected="@(enclosure.Value == Context.Request.Query["enclosureId"] ? "selected" : null)">
+				@enclosure.Text
+			</option>
+		}
+	</select>
 
-    <!-- Filter Button -->
-    <button type="submit" class="search-button">Filter</button>
+	<!-- Filter Button -->
+	<button type="submit" class="search-button">Filter</button>
+
+	<!-- Reset Filters Button -->
+	<a href="@Url.Action("Index", "Animal")" class="btn btn-danger">Reset Filters</a>
 </form>
+
+
+<!-- TOD(TimeOfDay) Buttons -->
+<form method="get" asp-controller="Animal" asp-action="Index">
+	<button type="submit" name="timeOfDay" value="sunset" class="btn btn-create">Sunset</button>
+	<button type="submit" name="timeOfDay" value="sunrise" class="btn btn-create">Sunrise</button>
+</form>
+<a class="btn btn-create" asp-controller="Animal" asp-action="Create">Create new animal</a>
 
 <!-- Animal Table -->
 <table border="1">
@@ -49,6 +59,7 @@
         <th>Security Requirement</th>
         <th>Actions</th>
     </tr>
+
     @foreach (var animal in Model)
     {
         <tr>
@@ -67,7 +78,7 @@
                     <input type="hidden" name="id" value="@animal.Id" />
                     <button type="submit" class="btn btn-danger">Delete</button>
                 </form>
-                <a class="btn btn-primary" asp-area="" asp-controller="Animal" asp-action="Edit" asp-route-id="@animal.Id">Edit</a>
+                <a class="btn btn-danger" asp-area="" asp-controller="Animal" asp-action="Edit" asp-route-id="@animal.Id">Edit</a>
             </td>
         </tr>
     }

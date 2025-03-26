@@ -14,7 +14,7 @@ public class AnimalController : Controller
 
     // GET: Animal (With Search Functionality and filter)
     [HttpGet]
-    public async Task<IActionResult> Index(string? searchString, int? categoryId)
+    public async Task<IActionResult> Index(string? searchString, int? categoryId, string timeOfDay)
     {
         var animals = _context.Animals
             .Include(a => a.Category)
@@ -36,9 +36,26 @@ public class AnimalController : Controller
             animals = animals.Where(a => a.CategoryId == categoryId.Value);
         }
 
+
+        // Filter animals based TOD
+        if (timeOfDay == "sunset")
+        {
+            animals = animals.Where(a => a.ActivityPattern == ActivityPatternEnum.Nocturnal || a.ActivityPattern == ActivityPatternEnum.Cathemeral);
+        }
+        else if (timeOfDay == "sunrise")
+        {
+            animals = animals.Where(a => a.ActivityPattern == ActivityPatternEnum.Diurnal || a.ActivityPattern == ActivityPatternEnum.Cathemeral);
+        }
+        else
+        {
+            // No time of day selected show all animals
+            animals = animals.Where(a => a.ActivityPattern == ActivityPatternEnum.Cathemeral || a.ActivityPattern == ActivityPatternEnum.Diurnal || a.ActivityPattern == ActivityPatternEnum.Nocturnal);
+        }
+
         // Prepare filter data for dropdowns
         ViewData["Categories"] = new SelectList(await _context.Categories.ToListAsync(), "Id", "Name");
         ViewData["Enclosures"] = new SelectList(await _context.Enclosures.ToListAsync(), "Id", "Name");
+
 
         return View(await animals.ToListAsync());
     }
