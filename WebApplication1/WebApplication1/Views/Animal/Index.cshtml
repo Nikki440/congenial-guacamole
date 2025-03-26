@@ -3,14 +3,13 @@
 <h2>Animal List</h2>
 <a class="btn btn-create" asp-controller="Animal" asp-action="Create">Create</a>
 
-<!-- Search Form -->
+<!-- Search & Filter Form -->
 <form asp-controller="Animal" asp-action="Index" method="get" class="search-container">
+    <!-- Search Bar -->
     <input type="text" class="search-bar" name="searchString" placeholder="Search" value="@Context.Request.Query["searchString"]" />
-    <button type="submit" class="search-button">Search</button>
-</form>
 
-<!-- Filter Form -->
-<select name="categoryId">
+    <!-- Category Filter Dropdown -->
+    <select name="categoryId">
         <option value="">All Categories</option>
         @foreach (var category in ViewData["Categories"] as SelectList)
         {
@@ -20,6 +19,7 @@
         }
     </select>
 
+    <!-- Enclosure Filter Dropdown -->
     <select name="enclosureId">
         <option value="">All Enclosures</option>
         @foreach (var enclosure in ViewData["Enclosures"] as SelectList)
@@ -30,9 +30,11 @@
         }
     </select>
 
-    <button type="submit">Filter</button>
+    <!-- Filter Button -->
+    <button type="submit" class="search-button">Filter</button>
+</form>
 
-
+<!-- Animal Table -->
 <table border="1">
     <tr>
         <th>Name</th>
