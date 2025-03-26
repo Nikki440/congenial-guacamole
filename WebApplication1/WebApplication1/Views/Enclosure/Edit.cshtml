@@ -42,29 +42,3 @@
 </form>
 
 <a asp-action="Index">Back to List</a>
-
-<script>
-    document.addEventListener("DOMContentLoaded", function () {
-        var climate = '@Model.Climate';
-        var habitatType = '@Model.HabitatType';
-        var securityLevel = '@Model.SecurityLevel';
-
-        // climate
-        var climateSelect = document.querySelector("select[name='Climate']");
-        if (climateSelect) {
-            climateSelect.value = climate;
-        }
-
-        //habitattype
-        var habitatTypeSelect = document.querySelector("select[name='HabitatType']");
-        if (habitatTypeSelect) {
-            habitatTypeSelect.value = habitatType;
-        }
-
-        //securitylevel
-        var securityLevelSelect = document.querySelector("select[name='SecurityLevel']");
-        if (securityLevelSelect) {
-            securityLevelSelect.value = securityLevel;
-        }
-    });
-</script>
