@@ -14,7 +14,7 @@ public class AnimalController : Controller
 
     // GET: Animal (With Search Functionality)
     [HttpGet]
-    public async Task<IActionResult> Index(string? searchString)
+    public async Task<IActionResult> Index(string? searchString, int? categoryId)
     {
         var animals = _context.Animals
             .Include(a => a.Category)
@@ -30,10 +30,18 @@ public class AnimalController : Controller
                 a.Enclosure.Name.Contains(searchString)
             );
         }
+        // Apply category filter
+        if (categoryId.HasValue)
+        {
+            animals = animals.Where(a => a.CategoryId == categoryId.Value);
+        }
+
+        // Prepare filter data for dropdowns
+        ViewData["Categories"] = new SelectList(await _context.Categories.ToListAsync(), "Id", "Name");
+        ViewData["Enclosures"] = new SelectList(await _context.Enclosures.ToListAsync(), "Id", "Name");
 
         return View(await animals.ToListAsync());
     }
-
 
 
     // GET: Animal/Create
