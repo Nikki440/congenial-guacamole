@@ -1,11 +1,12 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
 namespace WebApplication1.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialMigration : Migration
+    public partial class InitialCreate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -14,9 +15,9 @@ namespace WebApplication1.Migrations
                 name: "Categories",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    Name = table.Column<string>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -27,9 +28,9 @@ namespace WebApplication1.Migrations
                 name: "Zoos",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    Name = table.Column<string>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -40,14 +41,14 @@ namespace WebApplication1.Migrations
                 name: "Enclosures",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Climate = table.Column<int>(type: "int", nullable: false),
-                    HabitatType = table.Column<int>(type: "int", nullable: false),
-                    SecurityLevel = table.Column<int>(type: "int", nullable: false),
-                    Size = table.Column<double>(type: "float", nullable: false),
-                    ZooId = table.Column<int>(type: "int", nullable: true)
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    Name = table.Column<string>(type: "TEXT", nullable: false),
+                    Climate = table.Column<int>(type: "INTEGER", nullable: false),
+                    HabitatType = table.Column<int>(type: "INTEGER", nullable: false),
+                    SecurityLevel = table.Column<int>(type: "INTEGER", nullable: false),
+                    Size = table.Column<double>(type: "REAL", nullable: false),
+                    ZooId = table.Column<int>(type: "INTEGER", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -63,19 +64,20 @@ namespace WebApplication1.Migrations
                 name: "Animals",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Species = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    CategoryId = table.Column<int>(type: "int", nullable: true),
-                    Size = table.Column<int>(type: "int", nullable: false),
-                    DietaryClass = table.Column<int>(type: "int", nullable: false),
-                    ActivityPattern = table.Column<int>(type: "int", nullable: false),
-                    prey = table.Column<bool>(type: "bit", nullable: false),
-                    EnclosureId = table.Column<int>(type: "int", nullable: true),
-                    SpaceRequirement = table.Column<int>(type: "int", nullable: false),
-                    SecurityRequirement = table.Column<int>(type: "int", nullable: false),
-                    ZooId = table.Column<int>(type: "int", nullable: true)
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    Name = table.Column<string>(type: "TEXT", nullable: false),
+                    Species = table.Column<string>(type: "TEXT", nullable: false),
+                    CategoryId = table.Column<int>(type: "INTEGER", nullable: true),
+                    Size = table.Column<int>(type: "INTEGER", nullable: false),
+                    DietaryClass = table.Column<int>(type: "INTEGER", nullable: false),
+                    ActivityPattern = table.Column<int>(type: "INTEGER", nullable: false),
+                    Prey = table.Column<bool>(type: "INTEGER", nullable: false),
+                    SpaceRequirement = table.Column<int>(type: "INTEGER", nullable: false),
+                    SecurityRequirement = table.Column<int>(type: "INTEGER", nullable: false),
+                    EnclosureId = table.Column<int>(type: "INTEGER", nullable: true),
+                    FeedingTime = table.Column<DateTime>(type: "TEXT", nullable: true),
+                    ZooId = table.Column<int>(type: "INTEGER", nullable: true)
                 },
                 constraints: table =>
                 {
