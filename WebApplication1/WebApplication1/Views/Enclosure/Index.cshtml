@@ -15,6 +15,7 @@
         <th>Climate</th>
         <th>Habitat Type</th>
         <th>Security Level</th>
+        <th>Space Left</th>
         <th>Size</th>
         <th>Actions</th>
     </tr>
@@ -25,6 +26,7 @@
             <td>@enclosure.Climate</td>
             <td>@enclosure.HabitatType</td>
             <td>@enclosure.SecurityLevel</td>
+            <td>@enclosure.SpaceLeft().ToString("F2")</td>
             <td>@enclosure.Size.ToString("F2")</td>
             <td>
                 <form asp-area="" asp-controller="Enclosure" asp-action="Delete" method="post" style="display:inline;">

@@ -13,7 +13,7 @@
         // Method to calculate remaining space in the enclosure
         public double SpaceLeft()
         {
-            double usedSpace = Animals.Sum(a => a.SpaceRequirement);
+            double usedSpace = Animals?.Sum(a => a.SpaceRequirement) ?? 0;
             return Size - usedSpace;
         }
     }
