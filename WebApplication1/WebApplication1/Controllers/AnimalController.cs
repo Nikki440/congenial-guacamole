@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using WebApplication1.Models;
+using Bogus;
 
 public class AnimalController : Controller
 {
@@ -12,6 +13,7 @@ public class AnimalController : Controller
         _context = context;
     }
 
+    // AutoAssign
     [HttpPost]
     public async Task<IActionResult> AutoAssign(bool resetEnclosures)
     {
@@ -21,28 +23,27 @@ public class AnimalController : Controller
         {
             // Verwijder alle verblijven en huidige indeling
             _context.Enclosures.RemoveRange(_context.Enclosures);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
 
         var enclosures = await _context.Enclosures.ToListAsync();
 
         foreach (var animal in animals.Where(a => a.EnclosureId == null || a.EnclosureId == 0))
         {
-            Enclosure? assignedEnclosure = enclosures
-                .FirstOrDefault(e =>
-                    e.SpaceLeft() >= animal.SpaceRequirement &&
-                    e.SecurityLevel >= animal.SecurityRequirement); // Controleer beveiligingsniveau
+            var assignedEnclosure = enclosures
+                .FirstOrDefault(e => e.SpaceLeft() >= animal.SpaceRequirement);
 
             if (assignedEnclosure == null)
             {
-                // Maak nieuw verblijf aan als er geen ruimte of geschikt beveiligingsniveau is
-                assignedEnclosure = new Enclosure
-                {
-                    Name = "New Enclosure " + (enclosures.Count + 1),
-                    Size = 500, // Standaardgrootte (kan worden aangepast)
-                    SecurityLevel = animal.SecurityRequirement, // Match beveiligingsniveau van het dier
-                    Climate = ClimateEnum.Temperate // Bepaal eventueel via diergegevens
-                };
+                // Genereer willekeurig verblijf met Bogus
+                var faker = new Faker<Enclosure>()
+                    .RuleFor(e => e.Name, f => f.Lorem.Word()) // Willekeurige naam
+                    .RuleFor(e => e.Size, f => f.Random.Int(400, 1000)) // Willekeurige grootte tussen 400 en 1000
+                    .RuleFor(e => e.SecurityLevel, f => f.PickRandom<SecurityLevelEnum>()) // Willekeurig beveiligingsniveau
+                    .RuleFor(e => e.Climate, f => f.PickRandom<ClimateEnum>()) // Willekeurig klimaat
+                    .RuleFor(e => e.HabitatType, f => f.PickRandom< flagsEnum >()); // Correcte enum gebruiken
+
+                assignedEnclosure = faker.Generate();
 
                 _context.Enclosures.Add(assignedEnclosure);
                 await _context.SaveChangesAsync();
@@ -55,24 +56,8 @@ public class AnimalController : Controller
         }
 
         await _context.SaveChangesAsync();
-
         return RedirectToAction(nameof(Index));
     }
-    public async Task<IActionResult> RemoveAllAnimalsFromEnclosures()
-    {
-        var animals = await _context.Animals.ToListAsync();
-
-        foreach (var animal in animals)
-        {
-            animal.EnclosureId = null; // Or use `0` if your database doesn't allow null
-            _context.Update(animal);
-        }
-
-        await _context.SaveChangesAsync();
-
-        return RedirectToAction(nameof(Index));
-    }
-
 
 
     // GET: Animal (With Search Functionality and filter)
