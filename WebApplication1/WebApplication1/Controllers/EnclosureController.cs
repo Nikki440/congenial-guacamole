@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using WebApplication1.Models;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace WebApplication1.Controllers
 {
@@ -31,8 +32,10 @@ namespace WebApplication1.Controllers
                 );
             }
 
+            ViewData["Enclosures"] = new SelectList(await enclosures.ToListAsync(), "Id", "Name");
             return View(await enclosures.ToListAsync());
         }
+
 
         [HttpGet]
         public async Task<IActionResult> AnimalsInEnclosure(int enclosureId)
