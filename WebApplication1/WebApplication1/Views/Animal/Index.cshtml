@@ -89,7 +89,7 @@
             <td>
 	            @if (animal.FeedingTime != null)
 	            {
-		            @animal.FeedingTime
+                    @animal.FeedingTime?.ToString(@"hh\:mm")
 	            }
 	            else
 	            {

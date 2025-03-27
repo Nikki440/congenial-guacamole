@@ -7,6 +7,7 @@
         <tr>
             <th>Name</th>
             <th>Species</th>
+            <th>Security Level</th>
             <th>Feed Time</th>
         </tr>
     </thead>
@@ -16,6 +17,7 @@
             <tr>
                 <td>@animal.Name</td>
                 <td>@animal.Species</td>
+                <td>@animal.SecurityRequirement</td>
                 <td>@animal.FeedingTime?.ToString(@"hh\:mm")</td>
             </tr>
         }

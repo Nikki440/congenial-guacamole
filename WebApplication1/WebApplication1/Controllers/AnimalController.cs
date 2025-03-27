@@ -29,17 +29,19 @@ public class AnimalController : Controller
         foreach (var animal in animals.Where(a => a.EnclosureId == null || a.EnclosureId == 0))
         {
             Enclosure? assignedEnclosure = enclosures
-                .FirstOrDefault(e => e.SpaceLeft() >= animal.SpaceRequirement);
+                .FirstOrDefault(e =>
+                    e.SpaceLeft() >= animal.SpaceRequirement &&
+                    e.SecurityLevel >= animal.SecurityRequirement); // Controleer beveiligingsniveau
 
             if (assignedEnclosure == null)
             {
-                // Maak nieuw verblijf als er geen ruimte is
+                // Maak nieuw verblijf aan als er geen ruimte of geschikt beveiligingsniveau is
                 assignedEnclosure = new Enclosure
                 {
                     Name = "New Enclosure " + (enclosures.Count + 1),
-                    Size = 500, // Default grootte (aanpasbaar)
-                    SecurityLevel = SecurityLevelEnum.Medium, // Pas aan op basis van dieren
-                    Climate = ClimateEnum.Temperate // Of bepaal via diergegevens
+                    Size = 500, // Standaardgrootte (kan worden aangepast)
+                    SecurityLevel = animal.SecurityRequirement, // Match beveiligingsniveau van het dier
+                    Climate = ClimateEnum.Temperate // Bepaal eventueel via diergegevens
                 };
 
                 _context.Enclosures.Add(assignedEnclosure);
