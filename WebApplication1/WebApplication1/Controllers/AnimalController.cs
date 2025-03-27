@@ -31,7 +31,9 @@ public class AnimalController : Controller
         foreach (var animal in animals.Where(a => a.EnclosureId == null || a.EnclosureId == 0))
         {
             var assignedEnclosure = enclosures
-                .FirstOrDefault(e => e.SpaceLeft() >= animal.SpaceRequirement);
+                .FirstOrDefault(e =>
+                    e.SpaceLeft() >= animal.SpaceRequirement &&
+                    e.SecurityLevel >= animal.SecurityRequirement);
 
             if (assignedEnclosure == null)
             {
