@@ -109,7 +109,20 @@ public class AnimalController : Controller
 
         return View(await animals.ToListAsync());
     }
+    public async Task<IActionResult> RemoveAllAnimalsFromEnclosures()
+    {
+        var animals = await _context.Animals.ToListAsync();
 
+        foreach (var animal in animals)
+        {
+            animal.EnclosureId = null; // Or use `0` if your database doesn't allow null
+            _context.Update(animal);
+        }
+
+        await _context.SaveChangesAsync();
+
+        return RedirectToAction(nameof(Index));
+    }
 
     // GET: Animal/Create
     public IActionResult Create()
