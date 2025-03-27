@@ -32,7 +32,7 @@ public class AnimalController : Controller
         {
             var assignedEnclosure = enclosures
                 .FirstOrDefault(e =>
-                    e.SpaceLeft() >= animal.SpaceRequirement &&
+                    //e.SpaceLeft() >= animal.SpaceRequirement &&
                     e.SecurityLevel >= animal.SecurityRequirement);
 
             if (assignedEnclosure == null)

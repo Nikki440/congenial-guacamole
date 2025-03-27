@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using WebApplication1.Models;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using System.Drawing;
 
 namespace WebApplication1.Controllers
 {
@@ -19,7 +20,9 @@ namespace WebApplication1.Controllers
         [HttpGet]
         public async Task<IActionResult> Index(string? enclosureSearch)
         {
-            var enclosures = _context.Enclosures.AsQueryable();
+            var enclosures = _context.Enclosures
+                .Include(e => e.Animals) // Laad de dieren mee
+                .AsQueryable();
 
             if (!string.IsNullOrEmpty(enclosureSearch))
             {
@@ -32,33 +35,22 @@ namespace WebApplication1.Controllers
                 );
             }
 
-            ViewData["Enclosures"] = new SelectList(await enclosures.ToListAsync(), "Id", "Name");
-            return View(await enclosures.ToListAsync());
-        }
-
-
-        [HttpGet]
-        public async Task<IActionResult> AnimalsInEnclosure(int enclosureId)
-        {
-            var animals = await _context.Animals
-                .Where(a => a.Enclosure != null && a.Enclosure.Id == enclosureId)
+            var enclosureList = await enclosures
+                .Select(e => new Enclosure
+                {
+                    Id = e.Id,
+                    Name = e.Name,
+                    Climate = e.Climate,
+                    HabitatType = e.HabitatType,
+                    SecurityLevel = e.SecurityLevel,
+                    Size = e.Size, // Maximale grootte van de omheining
+                    SpaceLeft = e.Size - e.Animals.Sum(a => a.SpaceRequirement) // Bereken de overgebleven ruimte
+                })
                 .ToListAsync();
 
-            var enclosure = await _context.Enclosures
-                .FirstOrDefaultAsync(e => e.Id == enclosureId);
+            ViewData["Enclosures"] = new SelectList(enclosureList, "Id", "Name");
 
-            if (enclosure == null)
-            {
-                return NotFound();
-            }
-
-            var viewModel = new AnimalsInEnclosureViewModel
-            {
-                Enclosure = enclosure,
-                Animals = animals
-            };
-
-            return View(viewModel);
+            return View(enclosureList);
         }
 
         // GET: Enclosure/Create
@@ -153,5 +145,16 @@ namespace WebApplication1.Controllers
 
             return RedirectToAction(nameof(Index));
         }
+
+        [HttpGet]
+        public IActionResult AnimalsInEnclosure(int enclosureId)
+        {
+            List<Animal> animals = _context.Animals
+              .Where(a => a.EnclosureId == enclosureId)
+              .ToList();
+              
+            return View(animals);
+        }
+
     }
 }
