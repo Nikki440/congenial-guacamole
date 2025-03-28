@@ -7,310 +7,220 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/WebApplication1.styles.css" asp-append-version="true" />
+	
+	
+    <style>
+    /* General Styling */
+	    body {
+		    color: #333; /* Dark gray text */
+		    margin: 0;
+		    padding: 0;
+		    font-family: 'Arial', sans-serif; /* Professional and clean font */
+		    display: flex;
+		    flex-direction: column;
+		    min-height: 100vh;
+		    background-color: #f4f4f4; /* Light gray background */
+	    }
 
-	    <style>
-	        /* Styling for the entire page background */
-	        body {
-		        color: white; /* White text color */
-	            margin: 0;
-	            padding: 0;
-	            font-family: 'Comic Sans MS', cursive, sans-serif; /* Playful font for a cutesy vibe */
-	            display: flex;
-	            flex-direction: column; /* Ensures the footer stays at the bottom */
-	            min-height: 110vh; /* Makes sure the footer is pushed to the bottom even if content is short */
-		        background-image: url('/Images/kirby-30th-wallpaper-1.jpeg');
-	        }
-	        body::before {
-		        content: "";
-		        position: absolute;
-		        top: 0;
-		        left: 0;
-		        width: 100%;
-		        height: 100%;
-		        background: rgba(0, 0, 0, 0.5); /* Black with 50% transparency */
-		        z-index: -1; /* Place it behind the content */
-	        }
+	    /* Table Styling */
+	    table {
+		    border-collapse: collapse;
+		    width: 80%;
+		    max-width: 100%;
+		    border-radius: 8px;
+		    overflow: hidden;
+		    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+		    background-color: #ffffff;
+		    margin: 20px auto;
+	    }
 
-	        /* Styling for the table */
-	        table {
-		        border-collapse: collapse;
-		        width: 80%; /* Set a smaller width percentage */
-		        max-width: 100%; /* Ensure it doesn't exceed the container width */
-		        border-radius: 15px; /* Soft rounded edges for the table */
-		        overflow: hidden; /* Ensures rounded corners work */
-		        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1); /* Soft shadow to make the table pop */
-		        background-color: #fff5f8; /* Light pinkish background for the table */
-		        margin-bottom: 100px; /* Adds space below the table */
-		        margin-left: auto; /* Center the table horizontally */
-		        margin-right: auto; /* Center the table horizontally */
-	        }
+	    /* Table Headers */
+	    th {
+		    background-color: #0073e6; /* Deep blue */
+		    color: white;
+		    font-weight: bold;
+		    text-transform: uppercase;
+		    padding: 12px;
+		    font-size: 1em;
+	    }
 
-	        /* Adjust padding for table cells */
-	        th, td {
-		        border: 2px solid #f0c0c0; /* Soft pink border */
-		        padding: 8px 12px; /* Reduced padding for a more compact table */
-		        text-align: center; /* Center align text for a cuter look */
-		        font-size: 0.9em; /* Smaller font size for a more compact table */
-	        }
+	    /* Table Rows */
+	    tr:nth-child(odd) td {
+		    background-color: #f2f6fc; /* Soft blue-gray */
+	    }
 
-	        /* Optional: Reduce font size for headers if necessary */
-	        th {
-		        font-size: 0.9em; /* Smaller font size for header */
-	        }
+	    tr:nth-child(even) td {
+		    background-color: #e9edf5; /* Light gray-blue */
+	    }
 
+	    th, td {
+		    border: 1px solid #d0d7e1; /* Subtle border */
+		    padding: 10px;
+		    text-align: center;
+		    font-size: 0.9em;
+	    }
 
-	        /* Background color for alternate rows */
-	        tr:nth-child(odd) td {
-	            background-color: hotpink; /* Soft pink background for odd rows */
-	            color: #fff; /* White text color for odd rows */
-	        }
+	    /* Button Styling */
+	    .btn {
+		    border-radius: 6px;
+		    padding: 10px 16px;
+		    text-decoration: none;
+		    font-size: 1em;
+		    transition: all 0.3s ease-in-out;
+		    border: none;
+		    cursor: pointer;
+	    }
 
-	        tr:nth-child(even) td {
-	            background-color: deeppink; /* Light lavender-pink background for even rows */
-	            color: #fff; /* White text color for even rows */
-	        }
+	    .btn-primary {
+		    background-color: #0056b3; /* Dark blue */
+		    color: white;
+	    }
 
-	        th {
-	            background-color: #f8d7e0; /* Light blush pink background for headers */
-	            color: #8a2be2; /* Purple text for header */
-	            font-weight: bold; /* Bold header text */
-	            text-transform: uppercase; /* Capitalize header text */
-		        font-size: 1em; /* Larger heading size */
-	        }
+	    .btn-primary:hover {
+		    background-color: #004494; /* Slightly darker blue */
+	    }
 
-	        /* Styling for buttons */
-	        .btn {
-	            border-radius: 20px; /* Extra rounded edges for a cutesy button appearance */
-	            padding: 10px 20px; /* Increase padding for a more prominent button look */
-	            text-decoration: none; /* Removes underline from links */
-	            font-size: 1em; /* Slightly larger text for buttons */
-	            transition: all 0.3s ease-in-out; /* Smooth transition for button hover effects */
-	        }
+	    .btn-danger {
+		    background-color: #d9534f; /* Soft red */
+		    color: white;
+	    }
 
-	        .btn-danger {
-	            background-color: #ff5c8f; /* Soft red-pink background for Delete button */
-	            color: white; /* White text color */
-	            border: 2px solid #ff3b70; /* Soft border to match the button color */
-	        }
+	    .btn-danger:hover {
+		    background-color: #c9302c; /* Darker red */
+	    }
 
-	        .btn-primary {
-	            background-color: #ff87b5; /* Light pinkish background for Edit button */
-	            color: white; /* White text color */
-	            border: 2px solid #ff66a1; /* Soft border to match the button color */
-	        }
+	    .btn-create {
+		    background-color: #28a745; /* Green */
+		    color: white;
+	    }
 
-	        .btn-create {
-	            background-color: #ff87b5; /* Light pinkish color for the Create button */
-	            color: white; /* White text color */
-	            border: 2px solid #ff66a1; /* Soft border */
+	    .btn-create:hover {
+		    background-color: #218838; /* Darker green */
+	    }
 
-	        }
+	    /* Search Bar */
+	    .search-container {
+		    display: flex;
+		    gap: 10px;
+		    justify-content: center;
+		    margin-bottom: 20px;
+	    }
 
-	        .btn:hover {
-	            transform: scale(1.1); /* Slightly enlarge button on hover */
-	            opacity: 0.9; /* Slight fade effect on hover */
-	        }
+	    .search-bar {
+		    border-radius: 6px;
+		    padding: 10px;
+		    border: 1px solid #aaa;
+		    background-color: white;
+		    font-size: 1em;
+		    width: 300px;
+	    }
 
-	        /* Styling for button container to align buttons horizontally */
-	        .button-container {
-	            display: flex;
-	            gap: 15px; /* Adds more space between buttons */
-	            justify-content: center; /* Centers the buttons horizontally */
-	        }
+	    .search-button {
+		    border-radius: 6px;
+		    padding: 10px 16px;
+		    background-color: #0056b3;
+		    color: white;
+		    border: none;
+		    font-size: 1em;
+		    cursor: pointer;
+	    }
 
-	        /* Styling for the search container to align the input and button horizontally */
-	        .search-container {
-	            display: flex;
-	            gap: 10px; /* Adds space between the search bar and button */
-	            justify-content: center; /* Centers the search bar and button horizontally */
-	            margin-bottom: 20px; /* Adds space below the search bar */
-	        }
+	    .search-button:hover {
+		    background-color: #004494;
+	    }
 
-	        /* Styling for the search bar */
-	        .search-bar {
-	            border-radius: 20px; /* Rounded edges for the search bar */
-	            padding: 12px 20px; /* Increased padding for a cute look */
-	            border: 2px solid #ff66a1; /* Soft pink border for the search bar */
-	            background-color: #fff0f6; /* Very light pink background for the input field */
-	            font-size: 1em; /* Slightly larger font size */
-	            width: 300px; /* Fixed width for the search bar */
-	        }
+	    /* Page Headers */
+	    h2 {
+		    font-size: 1.5em;
+		    text-align: center;
+		    color: #333;
+		    margin-top: 20px;
+	    }
 
-	        /* Styling for the search button */
-	        .search-button {
-	            border-radius: 20px; /* Rounded edges for the search button */
-	            padding: 12px 20px; /* Increased padding */
-	            background-color: #ff87b5; /* Light pinkish color for the button */
-	            color: white; /* White text color */
-	            border: 2px solid #ff66a1; /* Soft pink border */
-	            font-size: 1.1em; /* Larger font size */
-	            transition: all 0.3s ease-in-out; /* Smooth hover effect */
-	        }
+	    /* Footer */
+	    footer {
+		    background-color: #0056b3;
+		    color: white;
+		    padding: 20px;
+		    text-align: center;
+		    margin-top: auto;
+		    font-size: 1em;
+	    }
 
-	            .search-button:hover {
-	                background-color: #ff5c8f; /* Slightly darker pink on hover */
-	                transform: scale(1.05); /* Slightly enlarge button on hover */
-	            }
+	    /* Input Fields */
+	    input[type="text"], input[type="email"], input[type="password"], textarea {
+		    border-radius: 6px;
+		    padding: 10px;
+		    border: 1px solid #ccc;
+		    background-color: white;
+		    font-size: 1em;
+		    width: 100%;
+		    box-sizing: border-box;
+	    }
 
-	        /* Styling for page headers */
-	        h2 {
-	            font-size: 1em; /* Larger heading size */
-	            text-align: center; /* Center align the header */
-	            color: #ff66a1; /* Pink color for the header */
-	            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1); /* Soft shadow for the header */
-	        }
+	    input[type="number"], select {
+		    border-radius: 6px;
+		    padding: 10px;
+		    border: 1px solid #ccc;
+		    background-color: white;
+		    font-size: 1em;
+		    width: 100%;
+	    }
 
-	        /* Styling for the footer */
-	        footer {
-	            background-color: #ff87b5; /* Soft pink background for footer */
-	            color: white; /* White text color */
-	            padding: 20px; /* Padding inside the footer */
-	            text-align: center; /* Center the text */
-	            margin-top: auto; /* Pushes the footer to the bottom */
-	            font-size: 1.7em; /* Larger text for footer */
-	        }
+	    /* Submit Button */
+	    button[type="submit"] {
+		    border-radius: 6px;
+		    padding: 10px 16px;
+		    background-color: #0056b3;
+		    color: white;
+		    border: none;
+		    font-size: 1em;
+		    cursor: pointer;
+	    }
 
-	            footer p {
-	                margin: 0;
-	            }
+	    button[type="submit"]:hover {
+		    background-color: #004494;
+	    }
 
-	        /* Styling for checkboxes */
-	        input[type="checkbox"] {
-	            margin-top: 10px; /* Adds space above the checkbox */
-	            margin-bottom: 20px; /* Adds space below the checkbox */
-	            width: 20px; /* Makes the checkbox a little bigger */
-	            height: 20px;
-	        }
+	    /* Sunrise and Sunset Buttons */
+	    button[type="submit"][value="sunrise"] {
+		    background-color: #f0ad4e; /* Orange */
+		    border: none;
+		    color: white;
+	    }
 
-	        /* Styling for links */
-	        a {
-	            display: inline-block; /* Makes the link behave like a button */
-	            padding: 12px 20px; /* Adds padding for a button-like appearance */
-	            font-size: 1.1em; /* Larger text for links */
-	            text-decoration: none; /* Removes underline from links */
-	            color: white; /* White text color */
-	            font-weight: bold; /* Bold links */
-	            border-radius: 20px; /* Rounded corners for button-like effect */
-	            background-color: #ffb3c6; /* Lighter pinkish background when not hovered */
-	            transition: all 0.3s ease-in-out; /* Smooth transition for hover effect */
-	        }
+	    button[type="submit"][value="sunrise"]:hover {
+		    background-color: #ec971f;
+	    }
 
-	            /* Hover effect for the link */
-	            a:hover {
-	                color: white; /* White text color on hover */
-	                background-color: #ff5c8f; /* Slightly darker pink on hover */
-	                transform: scale(1.1); /* Slightly enlarge the button on hover */
-	            }
+	    button[type="submit"][value="sunset"] {
+		    background-color: #343a40; /* Dark gray */
+		    border: none;
+		    color: white;
+	    }
 
-	        /* Styling for textboxes (input fields) */
-	        input[type="text"], input[type="email"], input[type="password"], textarea {
-	            border-radius: 20px; /* Rounded corners */
-	            padding: 12px 20px; /* Increased padding for a cuter look */
-	            border: 2px solid #ff66a1; /* Soft pink border */
-	            background-color: #fff0f6; /* Light pink background */
-	            font-size: 1em; /* Slightly larger font size */
-	            width: 100%; /* Make the input fields take up the full width */
-	            box-sizing: border-box; /* Ensures padding doesn't affect width */
-	            transition: all 0.3s ease-in-out; /* Smooth transition */
-	        }
+	    button[type="submit"][value="sunset"]:hover {
+		    background-color: #23272b;
+	    }
 
-	        /* Styling for dropdown (select) */
-	        select {
-	            border-radius: 20px; /* Rounded corners for select dropdown */
-	            padding: 12px 20px; /* Increased padding for a cuter look */
-	            border: 2px solid #ff66a1; /* Soft pink border */
-	            background-color: #fff0f6; /* Light pink background */
-	            font-size: 1em; /* Slightly larger font size */
-	            width: 100%; /* Make the select take up the full width */
-	            box-sizing: border-box; /* Ensures padding doesn't affect width */
-	            transition: all 0.3s ease-in-out; /* Smooth transition */
-	        }
+	    /* Navbar Buttons */
+	    .btn-nav {
+		    background-color: #0073e6;
+		    color: white !important;
+		    border: none;
+		    border-radius: 6px;
+		    padding: 10px 15px;
+		    transition: all 0.3s ease-in-out;
+		    font-weight: bold;
+		    text-align: center;
+	    }
 
-	        /* Styling for spinbuttons (input type="number") */
-	        input[type="number"] {
-	            border-radius: 20px; /* Rounded corners */
-	            padding: 12px 20px; /* Increased padding */
-	            border: 2px solid #ff66a1; /* Soft pink border */
-	            background-color: #fff0f6; /* Light pink background */
-	            font-size: 1em; /* Slightly larger font size */
-	            width: 100%; /* Full width */
-	            box-sizing: border-box; /* Ensures padding doesn't affect width */
-	            transition: all 0.3s ease-in-out; /* Smooth transition */
-	        }
+	    .btn-nav:hover {
+		    background-color: #0056b3;
+		    transform: scale(1.05);
+	    }
 
-	        /* Optional: Styling for the submit button */
-	        button[type="submit"] {
-	            border-radius: 20px; /* Rounded edges for the submit button */
-	            padding: 12px 20px; /* Increased padding */
-	            background-color: #ff87b5; /* Light pinkish color for the button */
-	            color: white; /* White text color */
-	            border: 2px solid #ff66a1; /* Soft pink border */
-	            font-size: 1em; /* Larger font size */
-	            transition: all 0.3s ease-in-out; /* Smooth hover effect */
-	        }
-
-	            button[type="submit"]:hover {
-	                background-color: #ff5c8f; /* Slightly darker pink on hover */
-	                transform: scale(1.05); /* Slightly enlarge button on hover */
-	            }
-	        /* Ensure navbar buttons have white text */
-	        .btn-nav {
-	            background-color: #ff87b5; /* Light pink */
-	            color: white !important; /* Force white text */
-	            border: 2px solid #ff66a1; /* Pink border */
-	            border-radius: 20px;
-	            padding: 10px 15px;
-	            transition: all 0.3s ease-in-out;
-	            font-weight: bold;
-	            text-align: center;
-	        }
-
-	            /* Ensure hover effect maintains white text */
-	            .btn-nav:hover {
-	                background-color: #ff5c8f;
-	                color: white !important; /* Keep text white */
-	                transform: scale(1.05);
-	                opacity: 0.9;
-	            }
-
-
-	        /* Adds spacing between navigation items */
-	        .navbar-nav {
-	            display: flex;
-	            gap: 10px; /* Adjust gap between buttons */
-	        }
-
-	            .navbar-nav .nav-link {
-	                color: white !important;
-	            }
-
-	        /* Styling for the Sunrise button */
-	        button[type="submit"][value="sunrise"] {
-	            background-color: #FFD700; /* Light yellow for sunrise */
-	            border: 2px solid #C76E00; /* Soft border to match the button color */
-		        color: white;
-	        }
-
-	        button[type="submit"][value="sunrise"]:hover {
-		        background-color: #ffb300; /* Darker yellow on hover */
-	                border: 2px solid #C76E00 /* Soft border to match the button color */
-	        }
-
-	        /* Styling for the Sunset button */
-	        button[type="submit"][value="sunset"] {
-		        background-color: blue; /* Sunset red/orange */
-		        color: white;
-	            border: 2px solid #001861; /* Soft border to match the button color */
-	        }
-
-	        button[type="submit"][value="sunset"]:hover {
-		        background-color: darkblue; /* Darker red on hover */
-	                border: 2px solid #001861 /* Soft border to match the button color */
-	        }
-
-	    </style>
-
-
+    </style>
 
 
 
