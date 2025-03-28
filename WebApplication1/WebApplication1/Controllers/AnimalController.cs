@@ -21,43 +21,51 @@ public class AnimalController : Controller
 
         if (resetEnclosures)
         {
-            // Verwijder alle verblijven en huidige indeling
+            // Remove all existing enclosures and reset assignments
             _context.Enclosures.RemoveRange(_context.Enclosures);
             await _context.SaveChangesAsync();
         }
 
-        var enclosures = await _context.Enclosures.ToListAsync();
+        // Load enclosures AFTER resetting to avoid stale data
+        var enclosures = await _context.Enclosures
+            .Include(e => e.Animals) // Include assigned animals to calculate space left
+            .ToListAsync();
 
         foreach (var animal in animals.Where(a => a.EnclosureId == null || a.EnclosureId == 0))
         {
             var assignedEnclosure = enclosures
                 .FirstOrDefault(e =>
-                    //e.SpaceLeft() >= animal.SpaceRequirement &&
+                    e.SpaceLeft >= animal.SpaceRequirement &&
                     e.SecurityLevel >= animal.SecurityRequirement);
 
             if (assignedEnclosure == null)
             {
-                // Genereer willekeurig verblijf met Bogus
+                // Generate a new enclosure if none is suitable
                 var faker = new Faker<Enclosure>()
-                    .RuleFor(e => e.Name, f => f.Lorem.Word()) // Willekeurige naam
-                    .RuleFor(e => e.Size, f => f.Random.Int(400, 1000)) // Willekeurige grootte tussen 400 en 1000
-                    .RuleFor(e => e.SecurityLevel, f => f.PickRandom<SecurityLevelEnum>()) // Willekeurig beveiligingsniveau
-                    .RuleFor(e => e.Climate, f => f.PickRandom<ClimateEnum>()) // Willekeurig klimaat
-                    .RuleFor(e => e.HabitatType, f => f.PickRandom< flagsEnum >()); // Correcte enum gebruiken
+                    .RuleFor(e => e.Name, f => f.Lorem.Word())
+                    .RuleFor(e => e.Size, f => f.Random.Int(400, 1000))
+                    .RuleFor(e => e.SecurityLevel, f => animal.SecurityRequirement)
+                    .RuleFor(e => e.Climate, f => f.PickRandom<ClimateEnum>())
+                    .RuleFor(e => e.HabitatType, f => f.PickRandom<flagsEnum>());
 
                 assignedEnclosure = faker.Generate();
 
                 _context.Enclosures.Add(assignedEnclosure);
                 await _context.SaveChangesAsync();
+
                 enclosures.Add(assignedEnclosure);
             }
 
-            // Koppel dier aan verblijf
+            // Assign the animal to the selected enclosure
             animal.EnclosureId = assignedEnclosure.Id;
             _context.Update(animal);
+
+            // Update the SpaceLeft value
+            assignedEnclosure.SpaceLeft = assignedEnclosure.Size - assignedEnclosure.Animals.Sum(a => a.SpaceRequirement);
+            await _context.SaveChangesAsync();
         }
 
-        await _context.SaveChangesAsync();
+        
         return RedirectToAction(nameof(Index));
     }
 
