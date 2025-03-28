@@ -8,9 +8,12 @@
         public ClimateEnum Climate { get; set; }
         public flagsEnum HabitatType { get; set; }
         public SecurityLevelEnum SecurityLevel { get; set; }
+        public double? SpaceLeft {get; set;}
         public double Size { get; set; }
- 
+
+        // Method to calculate remaining space in the enclosure
     }
+
 
     public enum ClimateEnum
     {

@@ -14,10 +14,8 @@ namespace WebApplication1.Data
             }
 
             // Seed Categories using Bogus
-            var categoryFaker = new Faker<Category>()
-                .RuleFor(c => c.Name, f => f.PickRandom(new[] { "Mammals", "Birds", "Reptiles", "Amphibians", "Fish" }));
-
-            var categories = categoryFaker.Generate(5);
+            var categoryNames = new[] { "Mammals", "Birds", "Reptiles", "Amphibians", "Fish" };
+            var categories = categoryNames.Select(name => new Category { Name = name }).ToList();
             context.Categories.AddRange(categories);
             context.SaveChanges();
 
@@ -45,7 +43,8 @@ namespace WebApplication1.Data
                 .RuleFor(a => a.Prey, f => f.Random.Bool())
                 .RuleFor(a => a.SpaceRequirement, f => f.Random.Double(10, 200))
                 .RuleFor(a => a.SecurityRequirement, f => f.PickRandom<SecurityLevelEnum>())
-                .RuleFor(a => a.SpaceRequirement, f => f.Random.Int(10, 200));
+                .RuleFor(a => a.SpaceRequirement, f => f.Random.Int(10, 200))
+                .RuleFor(a => a.FeedingTime, f => f.Date.Between(DateTime.Now.AddHours(-12), DateTime.Now.AddHours(12)).TimeOfDay);
 
             var animals = animalFaker.Generate(20);
             context.Animals.AddRange(animals);

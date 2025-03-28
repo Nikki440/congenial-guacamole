@@ -1,0 +1,27 @@
+﻿@model List<Animal>
+
+<h2>These are the animals in the enclosure</h2>
+
+<table class="category-table">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Species</th>
+            <th>Security Level</th>
+            <th>Space Requirement</th>
+            <th>Feed Time</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var animal in Model)
+        {
+            <tr>
+                <td>@animal.Name</td>
+                <td>@animal.Species</td>
+                <td>@animal.SecurityRequirement</td>
+                <td>@animal.SpaceRequirement</td>
+                <td>@animal.FeedingTime?.ToString(@"hh\:mm")</td>
+            </tr>
+        }
+    </tbody>
+</table>

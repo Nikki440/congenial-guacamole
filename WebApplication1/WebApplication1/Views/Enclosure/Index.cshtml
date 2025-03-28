@@ -1,0 +1,57 @@
+﻿@model List<WebApplication1.Models.Enclosure>
+
+<h2>Enclosure List</h2>
+<a class="btn btn-create" asp-controller="Enclosure" asp-action="Create">Create</a>
+
+<!-- Search Form -->
+<form asp-controller="Enclosure" asp-action="Index" method="get" class="search-container">
+    <input type="text" class="search-bar" name="enclosureSearch" placeholder="Search" value="@Context.Request.Query["enclosureSearch"]" />
+    <button type="submit" class="search-button">Search</button>
+</form>
+
+    
+<!-- Enclosure Filter Dropdown -->
+<select name="enclosureId">
+	<option value="">All Enclosures</option>
+	@foreach (var enclosure in ViewData["Enclosures"] as SelectList)
+	{
+		<option value="@enclosure.Value" selected="@(enclosure.Value == Context.Request.Query["enclosureId"] ? "selected" : null)">
+			@enclosure.Text
+		</option>
+	}
+</select>
+
+<!-- Filter Button -->
+<button type="submit" class="search-button">Filter</button>
+
+
+<table border="1">
+    <tr>
+        <th>Name</th>
+        <th>Climate</th>
+        <th>Habitat Type</th>
+        <th>Security Level</th>
+        <th>Space Left</th>
+        <th>Size</th>
+        <th>Actions</th>
+    </tr>
+    @foreach (var enclosure in Model)
+    {
+        <tr>
+            <td>@enclosure.Name</td>
+            <td>@enclosure.Climate</td>
+            <td>@enclosure.HabitatType</td>
+            <td>@enclosure.SecurityLevel</td>
+            <td>@Convert.ToInt32(enclosure.SpaceLeft)</td>
+            <td>@enclosure.Size.ToString("F2")</td>
+            <td>
+                <form asp-area="" asp-controller="Enclosure" asp-action="Delete" method="post" style="display:inline;">
+                    <input type="hidden" name="id" value="@enclosure.Id" />
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                </form>
+                <a class="btn btn-danger" asp-area="" asp-controller="Enclosure" asp-action="Edit" asp-route-id="@enclosure.Id">Edit</a>
+                <a class="btn btn-primary" asp-area="" asp-controller="Enclosure" asp-action="AnimalsInEnclosure" asp-route-enclosureId="@enclosure.Id">View Animals</a>
+            </td>
+        </tr>
+    }
+</table>

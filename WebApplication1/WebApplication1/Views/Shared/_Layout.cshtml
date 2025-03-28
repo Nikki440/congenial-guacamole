@@ -3,16 +3,252 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - WebApplication1</title>
+    <title>@ViewData["Title"] - Congenial Guacamole</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/WebApplication1.styles.css" asp-append-version="true" />
+	
+	
+    <style>
+    /* General Styling */
+	    body {
+		    color: black; /* Dark gray text */
+		    margin: 0;
+		    padding: 0;
+		    font-family: 'Arial', sans-serif; /* Professional and clean font */
+		    display: flex;
+		    flex-direction: column;
+		    min-height: 100vh;
+		    background-color: gray; /* Light gray background */
+	    }
+
+	    /* Table Styling */
+	    table {
+		    border-collapse: collapse;
+		    width: 80%;
+		    max-width: 100%;
+		    border-radius: 8px;
+		    overflow: hidden;
+		    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+		    background-color: #ffffff;
+		    margin: 20px auto;
+	    }
+
+	    /* Table Headers */
+	    th {
+		    background-color: #0073e6; /* Deep blue */
+		    color: white;
+		    font-weight: bold;
+		    text-transform: uppercase;
+		    padding: 12px;
+		    font-size: 1em;
+	    }
+
+	    /* Table Rows */
+	    tr:nth-child(odd) td {
+		    background-color: #f2f6fc; /* Soft blue-gray */
+	    }
+
+	    tr:nth-child(even) td {
+		    background-color: #e9edf5; /* Light gray-blue */
+	    }
+
+	    th, td {
+		    border: 1px solid #d0d7e1; /* Subtle border */
+		    padding: 10px;
+		    text-align: center;
+		    font-size: 0.9em;
+	    }
+
+	    /* Button Styling */
+	    .btn {
+		    border-radius: 6px;
+		    padding: 10px 16px;
+		    text-decoration: none;
+		    font-size: 1em;
+		    transition: all 0.3s ease-in-out;
+		    border: none;
+		    cursor: pointer;
+	    }
+
+	    .btn-primary {
+		    background-color: #0056b3; /* Dark blue */
+		    color: white;
+	    }
+
+	    .btn-primary:hover {
+		    background-color: #004494; /* Slightly darker blue */
+	    }
+
+	    .btn-danger {
+		    background-color: #d9534f; /* Soft red */
+		    color: white;
+	    }
+
+	    .btn-danger:hover {
+		    background-color: #c9302c; /* Darker red */
+	    }
+
+	    .btn-create {
+		    background-color: #28a745; /* Green */
+		    color: white;
+	    }
+
+	    .btn-create:hover {
+		    background-color: #218838; /* Darker green */
+	    }
+
+	    /* Search Bar */
+	    .search-container {
+		    display: flex;
+		    gap: 10px;
+		    justify-content: center;
+		    margin-bottom: 20px;
+	    }
+
+	    .search-bar {
+		    border-radius: 6px;
+		    padding: 10px;
+		    border: 1px solid #aaa;
+		    background-color: white;
+		    font-size: 1em;
+		    width: 300px;
+	    }
+
+	    .search-button {
+		    border-radius: 6px;
+		    padding: 10px 16px;
+		    background-color: #0056b3;
+		    color: white;
+		    border: none;
+		    font-size: 1em;
+		    cursor: pointer;
+	    }
+
+	    .search-button:hover {
+		    background-color: #004494;
+	    }
+
+	    /* Page Headers */
+	    h2 {
+		    font-size: 1.5em;
+		    text-align: center;
+		    color: #333;
+		    margin-top: 20px;
+	    }
+
+	    /* Footer */
+	    footer {
+		    background-color: #0056b3;
+		    color: black;
+		    padding: 20px;
+		    text-align: center;
+		    margin-top: auto;
+		    font-size: 1em;
+	    }
+
+	    /* Input Fields */
+	    input[type="text"], input[type="email"], input[type="password"], textarea {
+		    border-radius: 6px;
+		    padding: 10px;
+		    border: 1px solid #ccc;
+		    background-color: white;
+		    font-size: 1em;
+		    width: 100%;
+		    box-sizing: border-box;
+	    }
+
+	    input[type="number"], select {
+		    border-radius: 6px;
+		    padding: 10px;
+		    border: 1px solid #ccc;
+		    background-color: white;
+		    font-size: 1em;
+		    width: 100%;
+	    }
+
+	    /* Submit Button */
+	    button[type="submit"] {
+		    border-radius: 6px;
+		    padding: 10px 16px;
+		    background-color: #0056b3;
+		    color: white;
+		    border: none;
+		    font-size: 1em;
+		    cursor: pointer;
+	    }
+
+	    button[type="submit"]:hover {
+		    background-color: #004494;
+	    }
+
+	    /* Sunrise and Sunset Buttons */
+	    button[type="submit"][value="sunrise"] {
+		    background-color: #f0ad4e; /* Orange */
+		    border: none;
+		    color: white;
+	    }
+
+	    button[type="submit"][value="sunrise"]:hover {
+		    background-color: #ec971f;
+	    }
+
+	    button[type="submit"][value="sunset"] {
+		    background-color: #343a40; /* Dark gray */
+		    border: none;
+		    color: white;
+	    }
+
+	    button[type="submit"][value="sunset"]:hover {
+		    background-color: #23272b;
+	    }
+
+	    /* Navbar Buttons */
+	    .btn-nav {
+		    background-color: #0073e6;
+		    color: white !important;
+		    border: none;
+		    border-radius: 6px;
+		    padding: 10px 15px;
+		    transition: all 0.3s ease-in-out;
+		    font-weight: bold;
+		    text-align: center;
+	    }
+
+	    .btn-nav:hover {
+		    background-color: #0056b3;
+		    transform: scale(1.05);
+	    }
+
+    a {
+	    display: inline-block; /* Makes the link behave like a button */
+	    padding: 12px 24px; /* Adds comfortable padding for better clickability */
+	    font-size: 1.1em; /* Slightly larger text for readability */
+	    font-weight: 600; /* Medium-bold for a modern, clean look */
+	    text-decoration: none; /* Removes default underline */
+	    color: #ffffff; /* White text for contrast */
+	    border-radius: 8px; /* Softer, professional rounded corners */
+	    background-color: #0073e6; /* Elegant pinkish-red for a refined appearance */
+	    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+	    transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.2s ease;
+    }
+
+    /* Hover effect */
+    a:hover {
+				background-color: #004494;
+				}
+    </style>
+
+
+
+
+
 </head>
 <body>
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">WebApplication1</a>
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Congenial Guacamole</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -20,18 +256,14 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-	                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                        <li class="nav-item">
-	                        <a class="nav-link text-dark" asp-area="" asp-controller="Animal" asp-action="Create">Create</a>
-                        </li>
-                        <li class="nav-item">
 	                        <a class="nav-link text-dark" asp-area="" asp-controller="Animal" asp-action="Index">Animals</a>
                         </li>
-
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Enclosure" asp-action="Index">Enclosures</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Category" asp-action="Index">Animal Categories</a>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -42,12 +274,6 @@
             @RenderBody()
         </main>
     </div>
-
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2025 - WebApplication1 - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-        </div>
-    </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>

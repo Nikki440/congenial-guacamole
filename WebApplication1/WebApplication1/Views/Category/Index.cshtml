@@ -1,0 +1,37 @@
+﻿@model List<WebApplication1.Models.Category>
+
+<h2>Animal Categories</h2>
+
+<a class="btn btn-create" asp-controller="Category" asp-action="Create">Create</a>
+
+<!-- Search & Filter Form -->
+<form asp-controller="Category" asp-action="Index" method="get" class="search-container">
+	<!-- Search Bar -->
+	<input type="text" class="search-bar" name="categorySearch" placeholder="Search"
+	       value="@Context.Request.Query["categorySearch"]" />
+</form>
+
+<!-- Category Table -->
+<table border="1" class="category-table">
+	<thead>
+	<tr>
+		<th>Name</th>
+		<th>Actions</th>
+	</tr>
+	</thead>
+	<tbody>
+	@foreach (var category in Model)
+	{
+		<tr>
+			<td>@category.Name</td>
+			<td>
+				<form asp-area="" asp-controller="Category" asp-action="Delete" method="post" style="display:inline;">
+					<input type="hidden" name="id" value="@category.Id" />
+					<button type="submit" class="btn btn-danger">Delete</button>
+				</form>
+					<a class="btn btn-danger" asp-area="" asp-controller="Category" asp-action="Edit" asp-route-id="@category.Id">Edit</a>
+			</td>
+		</tr>
+	}
+	</tbody>
+</table>

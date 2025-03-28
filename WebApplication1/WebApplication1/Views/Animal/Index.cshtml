@@ -2,18 +2,108 @@
 
 <h2>Animal List</h2>
 
-<table border="1">
-	<tr>
-		<th>Name</th>
-		<th>Species</th>
-		<th>Category</th> <!-- Change "CategoryId" to "Category" -->
-	</tr>
-	@foreach (var animal in Model)
-	{
-		<tr>
-			<td>@animal.Name</td>
-			<td>@animal.Species</td>
-			<td>@animal.Category?.Name</td> <!-- Corrected: Use Category instead of CategoryId -->
-		</tr>
-	}
+<!-- Search & Filter Form -->
+<form asp-controller="Animal" asp-action="Index" method="get" class="search-container">
+    <!-- Search Bar -->
+    <input type="text" class="search-bar" name="searchString" placeholder="Search" value="@Context.Request.Query["searchString"]" />
+
+    <!-- Category Filter Dropdown -->
+    <select name="categoryId">
+        <option value="">All Categories</option>
+        @foreach (var category in ViewData["Categories"] as SelectList)
+        {
+            <option value="@category.Value" selected="@(category.Value == Context.Request.Query["categoryId"] ? "selected" : null)">
+                @category.Text
+            </option>
+        }
+    </select>
+
+    <!-- Enclosure Filter Dropdown -->
+    <select name="enclosureId">
+        <option value="">All Enclosures</option>
+        @foreach (var enclosure in ViewData["Enclosures"] as SelectList)
+        {
+            <option value="@enclosure.Value" selected="@(enclosure.Value == Context.Request.Query["enclosureId"] ? "selected" : null)">
+                @enclosure.Text
+            </option>
+        }
+    </select>
+
+    <!-- Filter Button -->
+    <button type="submit" class="search-button">Filter</button>
+
+    <!-- Reset Filters Button -->
+    <a href="@Url.Action("Index", "Animal")" class="btn btn-danger">Reset Filters</a>
+</form>
+
+<!-- TOD(TimeOfDay) Buttons -->
+<form method="get" asp-controller="Animal" asp-action="Index">
+    <button type="submit" name="timeOfDay" value="sunset" class="btn btn-create">Sunset</button>
+    <button type="submit" name="timeOfDay" value="sunrise" class="btn btn-create">Sunrise</button>
+</form>
+
+<a class="btn btn-create" asp-controller="Animal" asp-action="Create">Create new animal</a>
+
+<div class="d-flex">
+	<form asp-action="AutoAssign" method="post" class="me-2">
+        <button type="submit" class="btn btn-danger">AutoAssign Animals Without An Enclosure</button>
+	</form>
+	<form asp-action="RemoveAllAnimalsFromEnclosures" method="post">
+		<button type="submit" class="btn btn-danger">Remove All Animals from Enclosures</button>
+	</form>
+</div>
+
+
+
+<table>
+    <!-- Table Headers -->
+    <tr>
+        <th>Name</th>
+        <th>Species</th>
+        <th>Category</th>
+        <th>Enclosure</th>
+        <th>Size</th>
+        <th>Dietary Class</th>
+        <th>Activity Pattern</th>
+        <th>Prey</th>
+        <th>Space Requirement</th>
+        <th>Security Requirement</th>
+        <th>Feeding Time</th>
+        <th>Actions</th>
+    </tr>
+
+    <!-- Loop through the animals to display rows -->
+    @foreach (var animal in Model)
+    {
+        <tr>
+            <td>@animal.Name</td>
+            <td>@animal.Species</td>
+            <td>@animal.Category?.Name</td>
+            <td>@animal.Enclosure?.Name</td>
+            <td>@animal.Size</td>
+            <td>@animal.DietaryClass</td>
+            <td>@animal.ActivityPattern</td>
+            <td>@(animal.Prey ? "Yes" : "No")</td>
+            <td>@animal.SpaceRequirement</td>
+            <td>@animal.SecurityRequirement</td>
+            <td>
+	            @if (animal.FeedingTime != null)
+	            {
+                    @animal.FeedingTime?.ToString(@"hh\:mm")
+	            }
+	            else
+	            {
+		            <span>No feeding time set</span>
+	            }
+            </td>
+            <td>
+                <!-- Actions: Edit and Delete -->
+                <form asp-area="" asp-controller="Animal" asp-action="Delete" method="post" style="display:inline;">
+                    <input type="hidden" name="id" value="@animal.Id" />
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                </form>
+                <a class="btn btn-danger" asp-area="" asp-controller="Animal" asp-action="Edit" asp-route-id="@animal.Id">Edit</a>
+            </td>
+        </tr>
+    }
 </table>

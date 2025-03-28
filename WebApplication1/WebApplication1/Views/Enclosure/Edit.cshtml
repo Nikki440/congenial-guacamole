@@ -1,0 +1,34 @@
+﻿@model WebApplication1.Models.Enclosure
+
+<h2>Edit Enclosure</h2>
+
+<form asp-action="Edit" method="post">
+    <input type="hidden" asp-for="Id" />
+
+    <label>Name:</label>
+    <input type="text" asp-for="Name" required />
+    <br />
+
+    <label>Size (in square meters):</label>
+    <input type="number" asp-for="Size" step="0.1" required />
+    <br />
+
+    <label>Climate:</label>
+    <select asp-for="Climate" required asp-items="@(new SelectList(Enum.GetValues(typeof(WebApplication1.Models.ClimateEnum))))">
+    </select>
+    <br />
+
+    <label>Habitat Type:</label>
+    <select asp-for="HabitatType" required asp-items="@(new SelectList(Enum.GetValues(typeof(WebApplication1.Models.flagsEnum))))">
+    </select>
+    <br />
+
+    <label>Security Level:</label>
+    <select asp-for="SecurityLevel" required asp-items="@(new SelectList(Enum.GetValues(typeof(WebApplication1.Models.SecurityLevel))))">
+    </select>
+    <br />
+
+    <button type="submit">Save Changes</button>
+</form>
+
+<a asp-action="Index">Back to List</a>
