@@ -47,6 +47,7 @@ namespace WebApplication1.Migrations
                     Climate = table.Column<int>(type: "INTEGER", nullable: false),
                     HabitatType = table.Column<int>(type: "INTEGER", nullable: false),
                     SecurityLevel = table.Column<int>(type: "INTEGER", nullable: false),
+                    SpaceLeft = table.Column<double>(type: "REAL", nullable: true),
                     Size = table.Column<double>(type: "REAL", nullable: false),
                     ZooId = table.Column<int>(type: "INTEGER", nullable: true)
                 },

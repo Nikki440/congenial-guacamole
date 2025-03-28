@@ -109,6 +109,9 @@ namespace WebApplication1.Migrations
                     b.Property<double>("Size")
                         .HasColumnType("REAL");
 
+                    b.Property<double?>("SpaceLeft")
+                        .HasColumnType("REAL");
+
                     b.Property<int?>("ZooId")
                         .HasColumnType("INTEGER");
 

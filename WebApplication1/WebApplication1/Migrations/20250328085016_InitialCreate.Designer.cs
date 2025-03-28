@@ -11,7 +11,7 @@ using WebApplication1.Models;
 namespace WebApplication1.Migrations
 {
     [DbContext(typeof(DBContextDatabase))]
-    [Migration("20250326160852_InitialCreate")]
+    [Migration("20250328085016_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -110,6 +110,9 @@ namespace WebApplication1.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<double>("Size")
+                        .HasColumnType("REAL");
+
+                    b.Property<double?>("SpaceLeft")
                         .HasColumnType("REAL");
 
                     b.Property<int?>("ZooId")
