@@ -21,26 +21,24 @@ public class AnimalController : Controller
 
         if (resetEnclosures)
         {
-            // Remove all existing enclosures and reset assignments
             _context.Enclosures.RemoveRange(_context.Enclosures);
             await _context.SaveChangesAsync();
         }
 
-        // Load enclosures AFTER resetting to avoid stale data
-        var enclosures = await _context.Enclosures
-            .Include(e => e.Animals) // Include assigned animals to calculate space left
-            .ToListAsync();
-
         foreach (var animal in animals.Where(a => a.EnclosureId == null || a.EnclosureId == 0))
         {
-            var assignedEnclosure = enclosures
-                .FirstOrDefault(e =>
-                    e.SpaceLeft >= animal.SpaceRequirement &&
-                    e.SecurityLevel >= animal.SecurityRequirement);
+            // Load enclosures dynamically to get fresh data after each assignment
+            var assignedEnclosure = await _context.Enclosures
+                .Include(e => e.Animals)
+                .FirstOrDefaultAsync(e =>
+                    (e.Size - _context.Animals
+                        .Where(a => a.EnclosureId == e.Id)
+                        .Sum(a => (int?)a.SpaceRequirement) ?? 0) >= animal.SpaceRequirement &&
+                    e.SecurityLevel >= animal.SecurityRequirement
+                );
 
             if (assignedEnclosure == null)
             {
-                // Generate a new enclosure if none is suitable
                 var faker = new Faker<Enclosure>()
                     .RuleFor(e => e.Name, f => f.Lorem.Word())
                     .RuleFor(e => e.Size, f => f.Random.Int(400, 1000))
@@ -52,20 +50,15 @@ public class AnimalController : Controller
 
                 _context.Enclosures.Add(assignedEnclosure);
                 await _context.SaveChangesAsync();
-
-                enclosures.Add(assignedEnclosure);
             }
 
             // Assign the animal to the selected enclosure
             animal.EnclosureId = assignedEnclosure.Id;
             _context.Update(animal);
 
-            // Update the SpaceLeft value
-            assignedEnclosure.SpaceLeft = assignedEnclosure.Size - assignedEnclosure.Animals.Sum(a => a.SpaceRequirement);
-            await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync(); // Save after each assignment to update state
         }
 
-        
         return RedirectToAction(nameof(Index));
     }
 
